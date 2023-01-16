@@ -1,5 +1,8 @@
 from datasets import load_dataset
 import argparse
+import re
+
+
 
 
 dataset = load_dataset("Helsinki-NLP/tatoeba_mt", "eng-srp_Cyrl")
@@ -18,7 +21,7 @@ args = parser.parse_args()
 
 print("Modifying", args.num_sentences, "sentences using", args.num_rules, "paraphrasing rules.")
 
-for sentance in sourceStrings:
-    words = sentance.split(" ")
+for sentence in sourceStrings:
+    words = words = re.findall(r'\b\w+\b', sentence)
     for word in words:
         print(word)
