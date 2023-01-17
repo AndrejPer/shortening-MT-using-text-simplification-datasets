@@ -25,8 +25,9 @@ for i in range(args.num_rules):
     #in case of illegal argument
     if not line:
         break
-    pars_line = line.split(" ||| ")
-    rules.append({"tag": pars_line[0], "longer": pars_line[1], "shorter": pars_line[2], "score": pars_line[3], "ratio": pars_line[4], "equivalence": pars_line[5]}) #dictionary of rules!
+    pars_line = line.split("|")
+    rules.append({"tag": pars_line[0], "longer": pars_line[1], "shorter": pars_line[2], "score": float(pars_line[3]), "ratio": pars_line[4], "equivalence": pars_line[5]}) #dictionary of rules!
+print(rules)
 
 
 #APPLYING RULES
