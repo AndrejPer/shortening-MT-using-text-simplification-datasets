@@ -27,7 +27,10 @@ counter = 0
 
 for sentence in source_sentences:
     for index in range(args.num_rules):
-        pattern = re.compile(re.escape(rules["Shorter"][index].strip()))
+        #print(rules["Shorter"][index])
+        # Making the pattern with whitespace, so it doesn't change 'Facebook' to 'Facebookay'
+        pattern = re.compile(re.escape(" " + rules["Shorter"][index].strip() + " "))
+
 
         changes = len(re.findall(pattern, sentence))
         if changes != 0:
