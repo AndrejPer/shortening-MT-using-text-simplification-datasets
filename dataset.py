@@ -20,19 +20,22 @@ source_sentences = dataset['validation']['sourceString'][:args.num_sentences]
 
 
 #APPLYING RULES
-df = pd.read_csv("sorted_ppdb_small.csv", delimiter='\|', engine='python')
+rules = pd.read_csv("sorted_ppdb_small.csv", delimiter='\|', engine='python')
 
 # Counter for the number of changes made
 counter = 0
 
 for sentence in source_sentences:
     for index in range(args.num_rules):
-        pattern = re.compile(re.escape(df["Shorter"][index].strip()))
+        pattern = re.compile(re.escape(rules["Shorter"][index].strip()))
 
-        #print(len(re.findall(pattern, sentence)))
+        changes = len(re.findall(pattern, sentence))
+        print(changes)
         counter = counter + len(re.findall(pattern, sentence))
 
-        sentence = re.sub(pattern, df["Longer"][index], sentence)
-        print(sentence)
+        sentence = re.sub(pattern, rules["Longer"][index], sentence)
+        if changes > 0:
+            print(sentence)
+
 
 print(counter)
