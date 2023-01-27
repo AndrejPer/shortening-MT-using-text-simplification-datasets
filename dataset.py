@@ -33,10 +33,10 @@ for sentence in source_sentences:
         if changes != 0:
             print(changes)
             counter = counter + len(re.findall(pattern, sentence))
+            print(f"Before: {sentence}")
+            sentence = re.sub(pattern, rules["Longer"][index], sentence)
+            print(f"After: {sentence}")
 
-        sentence = re.sub(pattern, rules["Longer"][index], sentence)
-        if changes > 0:
-            print(sentence)
 
 
 print(counter)
