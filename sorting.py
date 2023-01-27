@@ -11,4 +11,4 @@ print(df)
 df = df[df['Equivalence'] == 'Equivalence']
 print(df)
 
-df.to_csv("sorted_ppdb_small.csv", sep='|', index=False)
+df.to_csv("sorted_ppdb_small.csv", sep='|', index=False, )
