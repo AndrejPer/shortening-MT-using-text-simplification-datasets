@@ -30,8 +30,9 @@ for sentence in source_sentences:
         pattern = re.compile(re.escape(rules["Shorter"][index].strip()))
 
         changes = len(re.findall(pattern, sentence))
-        print(changes)
-        counter = counter + len(re.findall(pattern, sentence))
+        if changes != 0:
+            print(changes)
+            counter = counter + len(re.findall(pattern, sentence))
 
         sentence = re.sub(pattern, rules["Longer"][index], sentence)
         if changes > 0:
