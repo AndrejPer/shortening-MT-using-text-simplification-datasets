@@ -27,6 +27,7 @@ rules = pd.read_csv("sorted_ppdb_small.csv", delimiter='\|', engine='python')
 counter = 0
 
 for i, sentence in enumerate(source_sentences.to_numpy()):
+    print(f"doing sentence {i}")
     #print(sentence[0])
     for index in range(args.num_rules):
         # Making the pattern with whitespace, so it doesn't change 'Facebook' to 'Facebookay'
@@ -34,8 +35,8 @@ for i, sentence in enumerate(source_sentences.to_numpy()):
 
         changes = len(re.findall(pattern, sentence[0]))
         if changes != 0:
-            print(changes)
-            counter = counter + len(re.findall(pattern, sentence[0]))
+            #print(changes)
+            counter = counter + changes
             #print(f"Before: {sentence[0]}")
             sentence[0] = re.sub(pattern, rules["Longer"][index], sentence[0])
             #print(f"After: {sentence[0]}")
