@@ -7,7 +7,7 @@ import pandas as pd
 parser = argparse.ArgumentParser()
 # Set the parameters
 parser.add_argument("--num_sentences", type = int, default=1000000, help="Number of first Y source sentences to apply rules to")
-parser.add_argument("--num_rules", type=int, default=7007, help="Number of first X rules from PPDB instance to apply")
+parser.add_argument("--num_rules", type=int, default=1000, help="Number of first X rules from PPDB instance to apply")
 args = parser.parse_args()
 print(f"Modifying {args.num_sentences} sentences using {args.num_rules} paraphrasing rules.")
 
@@ -17,7 +17,6 @@ with open("opus-100/opus.en-sr-train.en") as f:
     lines = f.readlines()
     fields = [line.strip().split('\n') for line in lines]
     source_sentences = pd.DataFrame(fields)
-print(source_sentences[0][10])
 
 
 #APPLYING RULES
