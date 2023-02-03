@@ -1,0 +1,58 @@
+import argparse
+import re
+import pandas as pd
+from multiprocessing import Pool, freeze_support
+
+if __name__ == '__main__':
+    freeze_support()
+
+    #PARSING
+    parser = argparse.ArgumentParser()
+    # Set the parameters
+    parser.add_argument("--num_sentences", type = int, default=1000000, help="Number of first Y source sentences to apply rules to")
+    parser.add_argument("--num_rules", type=int, default=1000, help="Number of first X rules from PPDB instance to apply")
+    parser.add_argument("--num_processes", type=int, default=4, help="Number of processes to use")
+    args = parser.parse_args()
+    print(f"Modifying {args.num_sentences} sentences using {args.num_rules} paraphrasing rules.")
+
+
+    #GETTING SOURCE SENTENCES
+    with open("opus-100/opus.en-sr-train.en") as f:
+        lines = f.readlines()
+        fields = [line.strip().split('\n') for line in lines]
+        source_sentences = pd.DataFrame(fields)
+
+
+    #APPLYING RULES
+    rules = pd.read_csv("sorted_ppdb_small.csv", delimiter='\|', engine='python')
+
+    # Counter for the number of changes made
+    counter = 0
+
+    def process_chunk(chunk):
+        chunk_counter = 0
+        for sentence in chunk:
+            for index in range(args.num_rules):
+                # Making the pattern with whitespace, so it doesn't change 'Facebook' to 'Facebookay'
+                pattern = re.compile(re.escape(" " + rules["Shorter"][index].strip() + " "))
+
+                changes = len(re.findall(pattern, sentence[0]))
+                if changes != 0:
+                    chunk_counter = chunk_counter + changes
+                    sentence[0] = re.sub(pattern, " " + rules["Longer"][index].strip() + " ", sentence[0])
+        return chunk_counter
+
+    def chunks(lst, n):
+        """Yield successive n-sized chunks from lst."""
+        for i in range(0, len(lst), n):
+            yield lst[i:i + n]
+
+    with Pool(args.num_processes) as p:
+        chunk_size = int(args.num_sentences / args.num_processes)
+        chunks_ = chunks(source_sentences.to_numpy(), chunk_size)
+        result = p.map(process_chunk, chunks_)
+        for chunk_counter in result:
+            counter += chunk_counter
+
+    source_sentences.to_csv(f"opus_{args.num_rules}_{args.num_sentences}.en-sr-train.en", sep="\n")
+    print(counter)
