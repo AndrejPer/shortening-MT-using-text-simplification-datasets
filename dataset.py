@@ -1,9 +1,6 @@
 import argparse
 import re
 import pandas as pd
-import os
-
-print(os.getcwd())
 
 # PARSING
 parser = argparse.ArgumentParser()
@@ -31,7 +28,7 @@ counter = 0
 for i, rule in rules.iterrows():
     # Ignoring numbers because they appear in contexts of dates, orders, within other numbers...
     # - it does not much sense to replace them
-    if rule["Shorter"].strip().isnumeric():
+    if rule["Shorter"].strip().isnumeric() or rule["Ratio"] == "1.0":
         continue
 
     # Using `\b` for detecting word boundaries
