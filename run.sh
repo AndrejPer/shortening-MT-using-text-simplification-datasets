@@ -15,6 +15,7 @@ echo "$PBS_JOBID is running on node `hostname -f` in a scratch directory $SCRATC
 
 #loads Python
 module add python/3.8.0-gcc
+module add pandas
 
 # test if scratch directory is set
 # if scratch directory is not set, issue error message and exit
@@ -31,7 +32,6 @@ cd $SCRATCHDIR
 
 # run dataset script
 source ../env/bin/activate
-echo "environment started"
 python dataset.py --num_rules 100 || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 
 # move the output to user's DATADIR or exit in case of failure
