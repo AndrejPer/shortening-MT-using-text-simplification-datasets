@@ -1,8 +1,8 @@
 #!/bin/bash
-#PBS -N myFirstJob
-#PBS -l select=2:ncpus=100:mem=4gb:scratch_local=10gb
-#PBS -l walltime=24:00:00
-#PBS -m ae
+#PBS -N runScript
+#PBS -l select=1:ncpus=2:mem=4gb:scratch_local=10gb
+#PBS -l walltime=10:00:00
+#PBS -m fae
 # The 4 lines above are options for scheduling system: job will run 1 hour at maximum, 1 machine with 4 processors + 4gb RAM memory + 10gb scratch memory are requested, email notification will be sent when the job aborts (a) or ends (e)
 
 # define a DATADIR variable: directory where the input files are taken from and where output will be copied to
