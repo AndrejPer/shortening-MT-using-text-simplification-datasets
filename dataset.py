@@ -28,7 +28,7 @@ counter = 0
 for i, rule in rules.iterrows():
     # Ignoring numbers because they appear in contexts of dates, orders, within other numbers...
     # - it does not much sense to replace them
-    if rule["Shorter"].strip().isnumeric() or rule["Ratio"] == "1.0":
+    if rule["Shorter"].strip().isnumeric() or rule["Ratio"] == "1.0" or rule["Shorter"].strip() + "ing" == rule["Longer"].strip():
         continue
 
     # Using `\b` for detecting word boundaries
