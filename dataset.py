@@ -42,6 +42,7 @@ for i, rule in rules.iterrows():
 
 print(f"Number of replacements: {counter}")
 
-output_file = open(f"{args.output_path}/opus_{args.num_rules}_{args.num_sentences}.en-sr-train.en", "w")
+#output_file = open(f"{args.output_path}/opus_{args.num_rules}_{args.num_sentences}.en-sr-train.en", "w")
+output_file = open(f"opus_{args.num_rules}_{args.num_sentences}.en-sr-train.en", "w")
 output_file.write(text)
 output_file.close()
