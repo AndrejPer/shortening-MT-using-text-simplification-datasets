@@ -2,8 +2,9 @@
 #PBS -N runScript
 #PBS -l select=1:ncpus=2:mem=4gb:scratch_local=10gb
 #PBS -l walltime=10:00:00
-#PBS -m fae
-# The 4 lines above are options for scheduling system: job will run 1 hour at maximum, 1 machine with 4 processors + 4gb RAM memory + 10gb scratch memory are requested, email notification will be sent when the job aborts (a) or ends (e)
+#PBS -m abe
+#PBS -o z_hardware
+#PBS -e z_time
 
 # define a DATADIR variable: directory where the input files are taken from and where output will be copied to
 DATADIR=/storage/praha1/home/andrejp/MT/shortening-MT-using-text-simplification-datasets # substitute username and path to to your real username and path

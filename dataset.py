@@ -3,56 +3,46 @@ import argparse
 import re
 import pandas as pd
 
-#PARSING
+# PARSING
 parser = argparse.ArgumentParser()
 # Set the parameters
-parser.add_argument("--num_sentences", type = int, default=1000000, help="Number of first Y source sentences to apply rules to")
+parser.add_argument("--num_sentences", type=int, default=1000000,
+                    help="Number of first Y source sentences to apply rules to")
 parser.add_argument("--num_rules", type=int, default=1000, help="Number of first X rules from PPDB instance to apply")
-parser.add_argument("--rule_id", type=int, default=-1, help="Index of s rule from PPDB instance to apply")
 
+parser.add_argument("--input_file", type=str, default="opus-100/opus.en-sr-train.en", help="Training set for Eng->Sr")
+parser.add_argument("--output_path", type=str, default="./", help="")
+parser.add_argument("--csv_file", type=str, default="sorted_ppdb_small.csv", help="CSV file with the rules")
 args = parser.parse_args()
+
 print(f"Modifying {args.num_sentences} sentences using {args.num_rules} paraphrasing rules.")
 
+input_file = open(args.input_file)
+lines = input_file.readlines()[:args.num_sentences]
+input_file.close()
 
-#GETTING SOURCE SENTENCES
-with open("opus-100/opus.en-sr-train.en") as f:
-    lines = f.readlines()
-    fields = [line.strip().split('\n') for line in lines]
-    source_sentences = pd.DataFrame(fields)
+text = "".join(lines)
 
+rules = pd.read_csv(args.csv_file, delimiter="\|", nrows=args.num_rules, engine="python")
 
-#APPLYING RULES
-rules = pd.read_csv("sorted_ppdb_small.csv", delimiter='\|', engine='python')
-
-# Counter for the number of changes made
 counter = 0
+for i, rule in rules.iterrows():
+    # Ignoring numbers because they appear in contexts of dates, orders, within other numbers...
+    # - it does not much sense to replace them
+    if rule["Shorter"].strip().isnumeric():
+        continue
 
-for i, sentence in enumerate(source_sentences.to_numpy()):
-    #print(f"doing sentence {i}")
-    #print(sentence[0])
-    if args.rule_id != -1:
-        # Making the pattern with whitespace, so it doesn't change 'Facebook' to 'Facebookay'
-        pattern = re.compile(re.escape(" " + rules["Shorter"][args.rule_id].strip() + " "))
+    # Using `\b` for detecting word boundaries
+    text, n = re.subn("\\b" + rule["Shorter"].strip() + "\\b", rule["Longer"].strip(), text)
 
-        changes = len(re.findall(pattern, sentence[0]))
-        if changes != 0:
-            # print(changes)
-            counter = counter + changes
-            # print(f"Before: {sentence[0]}")
-            sentence[0] = re.sub(pattern, " " + rules["Longer"][args.rule_id].strip() + " ", sentence[0])
-            # print(f"After: {sentence[0]}")
-    else:
-        for index in range(args.num_rules):
-            # Making the pattern with whitespace, so it doesn't change 'Facebook' to 'Facebookay'
-            pattern = re.compile(re.escape(" " + rules["Shorter"][index].strip() + " "))
+    # Info logging, so we see the state of our computation
+    if n != 0:
+        print(f"Applying {i}. rule: ({rule.Shorter.strip()} -> {rule.Longer.strip()}) with {n} replacements")
 
-            changes = len(re.findall(pattern, sentence[0]))
-            if changes != 0:
-                #print(changes)
-                counter = counter + changes
-                #print(f"Before: {sentence[0]}")
-                sentence[0] = re.sub(pattern, " " + rules["Longer"][index].strip() + " ", sentence[0])
-                #print(f"After: {sentence[0]}")
+    counter += n
 
-source_sentences.to_csv("opus-100/opus.en-sr-train.en", sep="\n")
-print(counter)
+print(f"Number of replacements: {counter}")
+
+output_file = open(f"{args.output_path}/opus_{args.num_rules}_{args.num_sentences}.en-sr-train.en", "w")
+output_file.write(text)
+output_file.close()
