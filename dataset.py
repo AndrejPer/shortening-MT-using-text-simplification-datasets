@@ -1,6 +1,9 @@
 import argparse
 import re
 import pandas as pd
+import os
+
+print(os.getcwd())
 
 # PARSING
 parser = argparse.ArgumentParser()
