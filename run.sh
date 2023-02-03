@@ -20,16 +20,18 @@ module add python/3.8.0-gcc
 # if scratch directory is not set, issue error message and exit
 test -n "$SCRATCHDIR" || { echo >&2 "Variable SCRATCHDIR is not set!"; exit 1; }
 
-# copy input file "h2o.com" to scratch directory
+# copy input files to scratch directory
 # if the copy operation fails, issue error message and exit
 cp $DATADIR/opus-100/opus.en-sr-train.en  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/dataset.py  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/sorted_ppdb_small.csv  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 
 # move into scratch directory
 cd $SCRATCHDIR
 
 # run dataset script
 source ../env/bin/activate
-python dataset.py --num_processors 100 || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
+python dataset.py --num_rules 100 || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 
 # move the output to user's DATADIR or exit in case of failure
 cp dataset.out $DATADIR/ || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
