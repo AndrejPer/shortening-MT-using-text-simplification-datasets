@@ -8,6 +8,7 @@
 
 # define a DATADIR variable: directory where the input files are taken from and where output will be copied to
 DATADIR=/storage/praha1/home/andrejp/MT/shortening-MT-using-text-simplification-datasets
+# define the number of rules to be applied
 
 echo "$PBS_JOBID is running on node `hostname -f` in a scratch directory $SCRATCHDIR" >> $DATADIR/jobs_info.txt
 
@@ -29,10 +30,10 @@ cd $SCRATCHDIR
 
 # run dataset script
 source $DATADIR/../env/bin/activate
-python dataset.py --num_rules 100 --input_file ./opus.en-sr-train.en || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
+python dataset.py --input_file ./opus.en-sr-train.en || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 
 # move the output to user's DATADIR or exit in case of failure
-cp opus_100_1000000.en-sr-train.en $DATADIR/ || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
+cp opus_10000_1000000.en-sr-train.en $DATADIR/ || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
 
 # clean the SCRATCH directory
 clean_scratch
