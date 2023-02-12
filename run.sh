@@ -33,7 +33,7 @@ source $DATADIR/../env/bin/activate
 python dataset.py --num__rules 7007 --input_file ./opus.en-sr-train.en || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 
 # move the output to user's DATADIR or exit in case of failure
-cp opus_10000_1000000.en-sr-train.en $DATADIR/ || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
+cp opus_7007_1000000.en-sr-train.en $DATADIR/ || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
 
 # clean the SCRATCH directory
 clean_scratch
