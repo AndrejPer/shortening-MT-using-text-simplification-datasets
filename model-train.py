@@ -76,11 +76,11 @@ tokenized_datasets = dataset.map(
     remove_columns=dataset["train"].column_names,
 )
 
-from transformers import TFAutoModelForSeq2SeqLM
-model = TFAutoModelForSeq2SeqLM.from_pretrained(model_checkpoint, from_pt=True)
+from transformers import AutoModelForSeq2SeqLM
+model = AutoModelForSeq2SeqLM.from_pretrained(model_checkpoint)
 
 from transformers import DataCollatorForSeq2Seq
-data_collator = DataCollatorForSeq2Seq(tokenizer, model=model, return_tensors="tf")
+data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
 
 batch = data_collator([tokenized_datasets["train"][i] for i in range(4, 6)])
 print(batch.keys())
@@ -88,99 +88,47 @@ print(batch.keys())
 for i in range(4, 6):
     print(tokenized_datasets["train"][i]["labels"])
 
-tf_train_dataset = model.prepare_tf_dataset(
-    tokenized_datasets["train"],
-    collate_fn=data_collator,
-    shuffle=True,
-    batch_size=32,
-)
-tf_eval_dataset = model.prepare_tf_dataset(
-    tokenized_datasets["validation"],
-    collate_fn=data_collator,
-    shuffle=False,
-    batch_size=16,
-)
+
 
 import evaluate
-
 metric = evaluate.load("sacrebleu")
 
 import numpy as np
-import tensorflow as tf
-from tqdm import tqdm
 
-generation_data_collator = DataCollatorForSeq2Seq(
-    tokenizer, model=model, return_tensors="tf", pad_to_multiple_of=128
-)
+def compute_metrics(eval_preds):
+    preds, labels = eval_preds
+    # In case the model returns more than the prediction logits
+    if isinstance(preds, tuple):
+        preds = preds[0]
 
-tf_generate_dataset = model.prepare_tf_dataset(
-    tokenized_datasets["validation"],
-    collate_fn=generation_data_collator,
-    shuffle=False,
-    batch_size=8,
-)
+    decoded_preds = tokenizer.batch_decode(preds, skip_special_tokens=True)
 
+    # Replace -100s in the labels as we can't decode them
+    labels = np.where(labels != -100, labels, tokenizer.pad_token_id)
+    decoded_labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
 
-@tf.function(jit_compile=True)
-def generate_with_xla(batch):
-    return model.generate(
-        input_ids=batch["input_ids"],
-        attention_mask=batch["attention_mask"],
-        max_new_tokens=128,
-    )
+    # Some simple post-processing
+    decoded_preds = [pred.strip() for pred in decoded_preds]
+    decoded_labels = [[label.strip()] for label in decoded_labels]
 
+    result = metric.compute(predictions=decoded_preds, references=decoded_labels)
+    return {"bleu": result["score"]}
 
-def compute_metrics():
-    all_preds = []
-    all_labels = []
+from transformers import Seq2SeqTrainingArguments
 
-    for batch, labels in tqdm(tf_generate_dataset):
-     predictions = generate_with_xla(batch)
-     decoded_preds = tokenizer.batch_decode(predictions, skip_special_tokens=True)
-     labels = labels.numpy()
-     labels = np.where(labels != -100, labels, tokenizer.pad_token_id)
-     decoded_labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
-     decoded_preds = [pred.strip() for pred in decoded_preds]
-     decoded_labels = [[label.strip()] for label in decoded_labels]
-     all_preds.extend(decoded_preds)
-     all_labels.extend(decoded_labels)
-
-     result = metric.compute(predictions=all_preds, references=all_labels)
-     return {"bleu": result["score"]}
-
-from transformers import create_optimizer
-from transformers.keras_callbacks import PushToHubCallback
-import tensorflow as tf
-
-# The number of training steps is the number of samples in the dataset, divided by the batch size then multiplied
-# by the total number of epochs. Note that the tf_train_dataset here is a batched tf.data.Dataset,
-# not the original Hugging Face Dataset, so its len() is already num_samples // batch_size.
-num_epochs = 3
-num_train_steps = len(tf_train_dataset) * num_epochs
-
-optimizer, schedule = create_optimizer(
-    init_lr=5e-5,
-    num_warmup_steps=0,
-    num_train_steps=num_train_steps,
-    weight_decay_rate=0.01,
-)
-model.compile(optimizer=optimizer)
-
-# Train in mixed-precision float16
-tf.keras.mixed_precision.set_global_policy("mixed_float16")
-
-
-from transformers.keras_callbacks import PushToHubCallback
-
-callback = PushToHubCallback(
-    output_dir="marian-finetuned-kde4-en-to-fr", tokenizer=tokenizer
-)
-
-model.fit(
-    tf_train_dataset,
-    validation_data=tf_eval_dataset,
-    callbacks=[callback],
-    epochs=num_epochs,
+args = Seq2SeqTrainingArguments(
+    f"marian-finetuned-kde4-en-to-fr",
+    evaluation_strategy="no",
+    save_strategy="epoch",
+    learning_rate=2e-5,
+    per_device_train_batch_size=32,
+    per_device_eval_batch_size=64,
+    weight_decay=0.01,
+    save_total_limit=3,
+    num_train_epochs=3,
+    predict_with_generate=True,
+    fp16=True,
+    push_to_hub=True,
 )
 
 from transformers import Seq2SeqTrainer
@@ -194,6 +142,8 @@ trainer = Seq2SeqTrainer(
     tokenizer=tokenizer,
     compute_metrics=compute_metrics,
 )
+
+trainer.evaluate(max_length=max_length)
 
 trainer.train()
 trainer.save_model(".")
