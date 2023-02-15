@@ -28,7 +28,7 @@ singularity run --nv /cvmfs/singularity.metacentrum.cz/NGC/PyTorch\:20.09-py3.SI
 module add python/3.8.0-gcc
 source $DATADIR/../env/bin/activate
 
-python $DATADIR/model-train.py || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
+python $DATADIR/model-train-pt.py || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 
 # move the output to user's DATADIR or exit in case of failure
 cp ./* $DATADIR/results || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
