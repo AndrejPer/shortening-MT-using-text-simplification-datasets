@@ -21,19 +21,23 @@ test -n "$SCRATCHDIR" || { echo >&2 "Variable SCRATCHDIR is not set!"; exit 1; }
 
 # copy input files to scratch directory
 # if the copy operation fails, issue error message and exit
-cp $DATADIR/opus-100/opus.en-sr-train.en  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
-cp $DATADIR/dataset.py  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
-cp $DATADIR/sorted_ppdb_small.csv  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/opus-100/opus_7007_1000000.en-sr-train.en  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/opus-100/opus.en-sr-train.sr  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/opus-100/opus.en-sr-test.en  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/opus-100/opus.en-sr-test.sr  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/opus-100/opus.en-sr-dev.en  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/opus-100/opus.en-sr-dev.sr  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/model-train-pt.py  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 
 # move into scratch directory
 cd $SCRATCHDIR
 
-# run dataset script
+# run fine-tuning script
 source $DATADIR/../env/bin/activate
-python dataset.py --num__rules 7007 --input_file ./opus.en-sr-train.en || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
+python $DATADIR/model-train-pt.py || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 
 # move the output to user's DATADIR or exit in case of failure
-cp opus_7007_1000000.en-sr-train.en $DATADIR/ || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
+cp ./* $DATADIR/results || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
 
 # clean the SCRATCH directory
 clean_scratch
