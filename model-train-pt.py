@@ -1,6 +1,7 @@
 from datasets import load_dataset, DatasetDict, Dataset
 import pandas as pd
 
+
 a_file = open("opus_7007_1000000.en-sr-train.en")
 file_contents = a_file.read()
 en_train_split = file_contents.splitlines()
@@ -38,7 +39,7 @@ dataset = Dataset.from_dict(dataset)
 
 from transformers import pipeline
 
-model_checkpoint = "Helsinki-NLP/opus-mt-en-fr"
+model_checkpoint = "Helsinki-NLP/opus-mt-tc-base-en-sh"
 translator = pipeline("translation", model=model_checkpoint)
 translator("Default to expanded threads")
 
@@ -117,7 +118,7 @@ def compute_metrics(eval_preds):
 from transformers import Seq2SeqTrainingArguments
 
 args = Seq2SeqTrainingArguments(
-    f"marian-finetuned-kde4-en-to-fr",
+    f"Helsinki-NLP/finetuned-opus-mt-tc-base-en-sh",
     evaluation_strategy="no",
     save_strategy="epoch",
     learning_rate=2e-5,
