@@ -20,6 +20,8 @@ file_contents = a_file.read()
 en_test_split = file_contents.splitlines()
 
 test = {'translation': [{"en": eng_text, "sr": srb_text} for eng_text, srb_text in zip(en_test_split, sr_test_split)]}
+test_sentences = [sentence for sentence in en_test_split]
+print(len(test_sentences))
 test = Dataset.from_dict(test)
 
 
