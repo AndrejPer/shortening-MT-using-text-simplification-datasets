@@ -29,7 +29,8 @@ cp $DATADIR/opus-100/opus.en-sr-dev.sr  $SCRATCHDIR || { echo >&2 "Error while c
 cp $DATADIR/model-train-pt.py  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 
 # installing packages
-pip install datasets transformers sentencepiece sacrebleu
+# pip install datasets transformers sentencepiece sacrebleu
+pip install evaluate
 
 # move into scratch directory
 cd $SCRATCHDIR
