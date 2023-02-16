@@ -128,7 +128,6 @@ args = Seq2SeqTrainingArguments(
     num_train_epochs=3,
     predict_with_generate=True,
     fp16=True,
-    push_to_hub=True,
 )
 
 from transformers import Seq2SeqTrainer
