@@ -30,7 +30,7 @@ cp $DATADIR/model-train-pt.py  $SCRATCHDIR || { echo >&2 "Error while copying in
 
 # installing packages
 # pip install datasets transformers sentencepiece sacrebleu
-pip install evaluate
+# pip install evaluate
 
 # move into scratch directory
 cd $SCRATCHDIR
