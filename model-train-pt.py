@@ -142,7 +142,7 @@ trainer = Seq2SeqTrainer(
     compute_metrics=compute_metrics,
 )
 
-trainer.evaluate(max_length=max_length)
+print(trainer.evaluate(max_length=max_length))
 
 trainer.train()
 trainer.save_model(".")
