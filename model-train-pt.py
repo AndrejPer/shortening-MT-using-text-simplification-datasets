@@ -49,7 +49,7 @@ translator(
 
 from transformers import AutoTokenizer
 
-model_checkpoint = "Helsinki-NLP/opus-mt-en-fr"
+model_checkpoint = "Helsinki-NLP/opus-mt-tc-base-en-sh"
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint, return_tensors="pt")
 
 en_sentence = dataset["train"][1]["translation"]["en"]
@@ -64,7 +64,7 @@ max_length = 128
 
 def preprocess_function(examples):
     inputs = [ex["en"] for ex in examples["translation"]]
-    targets = [ex["fr"] for ex in examples["translation"]]
+    targets = [ex["sr"] for ex in examples["translation"]]
     model_inputs = tokenizer(
         inputs, text_target=targets, max_length=max_length, truncation=True
     )
