@@ -7,4 +7,6 @@
 #PBS -o z_output
 #PBS -e z_error
 
-singularity run --nv /cvmfs/singularity.metacentrum.cz/NGC/PyTorch\:20.09-py3.SIF bash /storage/praha1/home/andrejp/MT/shortening-MT-using-text-simplification-datasets/run.sh
+export PYTHONUSERBASE=/storage/praha1/home/andrejp/PUB-PyTorch21.11
+
+singularity exec -B /scratch/cvmfs/singularity.metacentrum.cz/NGC/PyTorch\:21.11-py3.SIF bash run.sh

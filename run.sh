@@ -8,7 +8,6 @@
 
 # define a DATADIR variable: directory where the input files are taken from and where output will be copied to
 DATADIR=/storage/praha1/home/andrejp/MT/shortening-MT-using-text-simplification-datasets
-# define the number of rules to be applied
 
 echo "$PBS_JOBID is running on node `hostname -f` in a scratch directory $SCRATCHDIR" >> $DATADIR/jobs_info.txt
 
@@ -28,6 +27,9 @@ cp $DATADIR/opus-100/opus.en-sr-test.sr  $SCRATCHDIR || { echo >&2 "Error while 
 cp $DATADIR/opus-100/opus.en-sr-dev.en  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 cp $DATADIR/opus-100/opus.en-sr-dev.sr  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 cp $DATADIR/model-train-pt.py  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+
+# installing packages
+pip install datasets transformers sentencepiece sacrebleu
 
 # move into scratch directory
 cd $SCRATCHDIR
