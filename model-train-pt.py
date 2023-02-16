@@ -2,40 +2,39 @@ from datasets import load_dataset, DatasetDict, Dataset
 import pandas as pd
 
 
-a_file = open("opus_7007_1000000.en-sr-train.en")
+a_file = open("opus-100/opus_7007_1000000.en-sr-train.en")
 file_contents = a_file.read()
 en_train_split = file_contents.splitlines()
-a_file = open("opus.en-sr-train.sr")
+a_file = open("opus-100/opus.en-sr-train.sr")
 file_contents = a_file.read()
 sr_train_split = file_contents.splitlines()
 
 train = {'translation': [{"en": eng_text, "sr": srb_text} for eng_text, srb_text in zip(en_train_split, sr_train_split)]}
-print(train['translation'][:10])
+train = Dataset.from_dict(train)
 
 
-a_file = open("opus.en-sr-test.sr")
+a_file = open("opus-100/opus.en-sr-test.sr")
 file_contents = a_file.read()
 sr_test_split = file_contents.splitlines()
-a_file = open("opus.en-sr-test.en")
+a_file = open("opus-100/opus.en-sr-test.en")
 file_contents = a_file.read()
 en_test_split = file_contents.splitlines()
 
 test = {'translation': [{"en": eng_text, "sr": srb_text} for eng_text, srb_text in zip(en_test_split, sr_test_split)]}
-print(test['translation'][:10])
+test = Dataset.from_dict(test)
 
 
-a_file = open("opus.en-sr-dev.sr")
+a_file = open("opus-100/opus.en-sr-dev.sr")
 file_contents = a_file.read()
 sr_dev_split = file_contents.splitlines()
-a_file = open("opus.en-sr-dev.en")
+a_file = open("opus-100/opus.en-sr-dev.en")
 file_contents = a_file.read()
 en_dev_split = file_contents.splitlines()
 
 dev = {'translation': [{"en": eng_text, "sr": srb_text} for eng_text, srb_text in zip(en_dev_split, sr_dev_split)]}
-print(dev['translation'][:10])
+dev = Dataset.from_dict(dev)
 
-dataset = dict({'train': train, 'test': test, 'dev': dev})
-dataset = Dataset.from_dict(dataset)
+dataset = DatasetDict({'train': train, 'test': test, 'validation': dev})
 
 from transformers import pipeline
 
