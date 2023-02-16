@@ -21,6 +21,7 @@ file_contents = a_file.read()
 en_test_split = file_contents.splitlines()
 
 test = {'translation': [{"en": eng_text, "sr": srb_text} for eng_text, srb_text in zip(en_test_split, sr_test_split)]}
+test_sentences = [sentence for sentence in en_test_split]
 test = Dataset.from_dict(test)
 
 
@@ -40,12 +41,16 @@ from transformers import pipeline
 
 model_checkpoint = "Helsinki-NLP/opus-mt-tc-base-en-sh"
 translator = pipeline("translation", model=model_checkpoint)
-translator("Default to expanded threads")
+print(translator("Default to expanded threads"))
+print(translator("Unable to import %1 using the OFX importer plugin. This file is not the correct format."))
+
+# checking output of translation of test set before training and storing it in a file
+test_translation = translator(test_sentences)
+trans_file = open("raw_translation.txt", "w")
+for sentence in test_translation:
+    trans_file.write(sentence + "\n")
 
 
-translator(
-    "Unable to import %1 using the OFX importer plugin. This file is not the correct format."
-)
 
 from transformers import AutoTokenizer
 
@@ -142,7 +147,25 @@ trainer = Seq2SeqTrainer(
     compute_metrics=compute_metrics,
 )
 
+print("evaluation before training: ")
 print(trainer.evaluate(max_length=max_length))
 
 trainer.train()
+print("evaluation after training: ")
+print(trainer.evaluate(max_length=max_length))
+
+
 trainer.save_model(".")
+
+# loading the model and translating test set again
+from transformers import MarianMTModel, MarianTokenizer
+model_checkpoint = "Helsinki-NLP/finetuned-opus-mt-tc-base-en-sh"
+tokenizer = MarianTokenizer.from_pretrained(model_checkpoint)
+model = MarianMTModel.from_pretrained(model_checkpoint)
+padded_test_set = [">>>srp_Latn<<< " + sentence for sentence in test_sentences]
+translated = model.generate(**tokenizer(test_sentences, return_tensors="pt", padding=True))
+trans_file = open("fine-tuned_translation.txt", "w")
+for t in translated:
+    trans_file.write(tokenizer.decode(t, skip_special_tokens=True) + "\n")
+
+
