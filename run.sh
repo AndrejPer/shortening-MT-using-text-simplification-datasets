@@ -37,7 +37,7 @@ cd $SCRATCHDIR
 
 # run fine-tuning script
 source $DATADIR/../env/bin/activate
-python $DATADIR/model-train-pt.py || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
+python $DATADIR/raw_translation.py || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 
 # move the output to user's DATADIR or exit in case of failure
 cp -r ./* $DATADIR/results || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
