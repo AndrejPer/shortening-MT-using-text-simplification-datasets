@@ -44,13 +44,6 @@ translator = pipeline("translation", model=model_checkpoint)
 print(translator("Default to expanded threads"))
 print(translator("Unable to import %1 using the OFX importer plugin. This file is not the correct format."))
 
-# checking output of translation of test set before training and storing it in a file
-test_translation = translator(test_sentences)
-trans_file = open("raw_translation.txt", "w")
-for sentence in test_translation:
-    trans_file.write(sentence + "\n")
-
-
 
 from transformers import AutoTokenizer
 

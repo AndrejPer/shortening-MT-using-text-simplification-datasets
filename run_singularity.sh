@@ -1,8 +1,8 @@
 #!/bin/bash
 #PBS -N PyTorch_Job
 #PBS -q gpu
-#PBS -l select=1:ncpus=1:mem=20gb:scratch_local=20gb:ngpus=1
-#PBS -l walltime=24:00:00
+#PBS -l select=1:ncpus=1:mem=10gb:scratch_local=10gb:ngpus=1
+#PBS -l walltime=5:00:00
 #PBS -m abe
 #PBS -o z_output
 #PBS -e z_error
