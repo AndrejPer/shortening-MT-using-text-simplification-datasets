@@ -8,7 +8,7 @@ file_contents = a_file.read()
 en_test_split = file_contents.splitlines()
 
 test = {'translation': [{"en": eng_text, "sr": srb_text} for eng_text, srb_text in zip(en_test_split, sr_test_split)]}
-test_sentences = [sentence for sentence in en_test_split]
+test_sentences = [">>>srp_Latn<<<" + sentence for sentence in en_test_split]
 test = Dataset.from_dict(test)
 
 from transformers import pipeline
@@ -23,4 +23,4 @@ test_translation = translator(test_sentences)
 trans_file = open("raw_translation.txt", "w")
 for sentence in test_translation:
     print(sentence)
-    trans_file.write(sentence + "\n")
+    trans_file.write(sentence["translation_text"] + "\n")
