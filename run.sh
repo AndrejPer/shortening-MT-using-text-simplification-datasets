@@ -40,7 +40,7 @@ source $DATADIR/../env/bin/activate
 python $DATADIR/raw_translation.py || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 
 # move the output to user's DATADIR or exit in case of failure
-cp -r ./* $DATADIR/results || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
+cp -r ./* $DATADIR/results_4 || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
 
 # clean the SCRATCH directory
 clean_scratch
