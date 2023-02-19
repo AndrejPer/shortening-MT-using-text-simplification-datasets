@@ -2,7 +2,7 @@ from datasets import load_dataset, DatasetDict, Dataset
 import pandas as pd
 
 
-a_file = open("opus_7007_1000000.en-sr-train.en")
+a_file = open("opus.en-sr-train.en")
 file_contents = a_file.read()
 en_train_split = file_contents.splitlines()
 a_file = open("opus.en-sr-train.sr")
