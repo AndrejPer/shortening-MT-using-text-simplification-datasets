@@ -83,9 +83,6 @@ data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
 batch = data_collator([tokenized_datasets["train"][i] for i in range(4, 6)])
 print(batch.keys())
 
-for i in range(4, 6):
-    print(tokenized_datasets["train"][i]["labels"])
-
 
 
 import evaluate
@@ -147,18 +144,18 @@ trainer.train()
 print("evaluation after training: ")
 print(trainer.evaluate(max_length=max_length))
 
+new_model_checkpoint = "Helsinki-NLP/finetuned-opus-mt-tc-base-en-sh"
+trainer.save_model("./" + new_model_checkpoint)
 
-trainer.save_model(".")
 
-# loading the model and translating test set again
-from transformers import MarianMTModel, MarianTokenizer
-model_checkpoint = "Helsinki-NLP/finetuned-opus-mt-tc-base-en-sh"
-tokenizer = MarianTokenizer.from_pretrained(model_checkpoint)
-model = MarianMTModel.from_pretrained(model_checkpoint)
-padded_test_set = [">>>srp_Latn<<< " + sentence for sentence in test_sentences]
-translated = model.generate(**tokenizer(test_sentences, return_tensors="pt", padding=True))
-trans_file = open("fine-tuned_translation.txt", "w")
-for t in translated:
-    trans_file.write(tokenizer.decode(t, skip_special_tokens=True) + "\n")
+#####
+from transformers import AutoModelForSeq2SeqLM
+model = AutoModelForSeq2SeqLM.from_pretrained(new_model_checkpoint)
+
+from transformers import DataCollatorForSeq2Seq
+data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
+
+batch = data_collator([tokenized_datasets["train"][i] for i in range(4, 6)])
+print(batch.keys())
 
 
