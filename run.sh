@@ -29,6 +29,7 @@ cd $SCRATCHDIR
 
 # run Python script
 source $DATADIR/../env/bin/activate
+echo $DATADIR/$PYTHONPROG
 python $DATADIR/$PYTHONPROG || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 
 # move the output to user's DATADIR or exit in case of failure
