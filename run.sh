@@ -1,8 +1,4 @@
 #!/bin/bash
-#PBS -N runScript
-#PBS -l select=1:ncpus=2:mem=4gb:scratch_local=10gb
-#PBS -l walltime=10:00:00
-#PBS -m abe
 
 # define a DATADIR variable: directory where the input files are taken from and where output will be copied to
 DATADIR=/storage/praha1/home/andrejp/MT/shortening-MT-using-text-simplification-datasets
@@ -21,6 +17,8 @@ test -n "$SCRATCHDIR" || { echo >&2 "Variable SCRATCHDIR is not set!"; exit 1; }
 # if the copy operation fails, issue error message and exit
 cp -r $DATADIR/Helsinki-NLP $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 cp $DATADIR/$PYTHONPROG  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/opus-100/opus.en-sr-test.en  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/opus-100/opus.en-sr-test.sr  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 
 # installing packages
 # pip install datasets transformers sentencepiece sacrebleu
