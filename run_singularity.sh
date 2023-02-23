@@ -2,7 +2,7 @@
 #PBS -N ft_trans_pt
 #PBS -q gpu
 #PBS -l select=1:ncpus=1:mem=10gb:scratch_local=10gb:ngpus=1
-#PBS -l walltime=5:00:00
+#PBS -l walltime=8:00:00
 #PBS -m abe
 
 export PYTHONUSERBASE=/storage/praha1/home/andrejp/PUB-PyTorch21.11
