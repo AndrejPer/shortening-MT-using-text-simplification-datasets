@@ -1,6 +1,5 @@
-from datasets import load_dataset, DatasetDict, Dataset
-import pandas as pd
-
+from datasets import DatasetDict, Dataset
+from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM, DataCollatorForSeq2Seq, Seq2SeqTrainingArguments, Seq2SeqTrainer, DataCollatorForSeq2Seq
 
 a_file = open("opus.en-sr-train.en")
 file_contents = a_file.read()
@@ -9,9 +8,9 @@ a_file = open("opus.en-sr-train.sr")
 file_contents = a_file.read()
 sr_train_split = file_contents.splitlines()
 
-train = {'translation': [{"en": eng_text, "sr": srb_text} for eng_text, srb_text in zip(en_train_split, sr_train_split)]}
+train = {
+    'translation': [{"en": eng_text, "sr": srb_text} for eng_text, srb_text in zip(en_train_split, sr_train_split)]}
 train = Dataset.from_dict(train)
-
 
 a_file = open("opus.en-sr-test.sr")
 file_contents = a_file.read()
@@ -23,7 +22,6 @@ en_test_split = file_contents.splitlines()
 test = {'translation': [{"en": eng_text, "sr": srb_text} for eng_text, srb_text in zip(en_test_split, sr_test_split)]}
 test_sentences = [sentence for sentence in en_test_split]
 test = Dataset.from_dict(test)
-
 
 a_file = open("opus.en-sr-dev.sr")
 file_contents = a_file.read()
@@ -37,17 +35,12 @@ dev = Dataset.from_dict(dev)
 
 dataset = DatasetDict({'train': train, 'test': test, 'validation': dev})
 
-from transformers import pipeline
-
 model_checkpoint = "Helsinki-NLP/opus-mt-tc-base-en-sh"
 translator = pipeline("translation", model=model_checkpoint)
 print(translator("Default to expanded threads"))
 print(translator("Unable to import %1 using the OFX importer plugin. This file is not the correct format."))
 
 
-from transformers import AutoTokenizer
-
-model_checkpoint = "Helsinki-NLP/opus-mt-tc-base-en-sh"
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint, return_tensors="pt")
 
 en_sentence = dataset["train"][1]["translation"]["en"]
@@ -55,7 +48,6 @@ sr_sentence = dataset["train"][1]["translation"]["sr"]
 
 inputs = tokenizer(en_sentence, text_target=sr_sentence)
 print(inputs)
-
 
 max_length = 128
 
@@ -68,27 +60,26 @@ def preprocess_function(examples):
     )
     return model_inputs
 
+
 tokenized_datasets = dataset.map(
     preprocess_function,
     batched=True,
     remove_columns=dataset["train"].column_names,
 )
 
-from transformers import AutoModelForSeq2SeqLM
-model = AutoModelForSeq2SeqLM.from_pretrained(model_checkpoint)
 
-from transformers import DataCollatorForSeq2Seq
+model = AutoModelForSeq2SeqLM.from_pretrained(model_checkpoint)
 data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
 
 batch = data_collator([tokenized_datasets["train"][i] for i in range(4, 6)])
 print(batch.keys())
 
-
-
 import evaluate
+
 metric = evaluate.load("sacrebleu")
 
 import numpy as np
+
 
 def compute_metrics(eval_preds):
     preds, labels = eval_preds
@@ -109,10 +100,10 @@ def compute_metrics(eval_preds):
     result = metric.compute(predictions=decoded_preds, references=decoded_labels)
     return {"bleu": result["score"]}
 
-from transformers import Seq2SeqTrainingArguments
+
 
 args = Seq2SeqTrainingArguments(
-    f"Helsinki-NLP/finetuned-opus-mt-tc-base-en-sh",
+    f"Helsinki-NLP/serbian-opus-mt-tc-base-en-sh",
     evaluation_strategy="no",
     save_strategy="epoch",
     learning_rate=2e-5,
@@ -125,7 +116,6 @@ args = Seq2SeqTrainingArguments(
     fp16=True,
 )
 
-from transformers import Seq2SeqTrainer
 
 trainer = Seq2SeqTrainer(
     model,
@@ -144,18 +134,6 @@ trainer.train()
 print("evaluation after training: ")
 print(trainer.evaluate(max_length=max_length))
 
-new_model_checkpoint = "Helsinki-NLP/finetuned-opus-mt-tc-base-en-sh"
+new_model_checkpoint = "Helsinki-NLP/serbian-opus-mt-tc-base-en-sh"
 trainer.save_model("./" + new_model_checkpoint)
-
-
-#####
-from transformers import AutoModelForSeq2SeqLM
-model = AutoModelForSeq2SeqLM.from_pretrained(new_model_checkpoint)
-
-from transformers import DataCollatorForSeq2Seq
-data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
-
-batch = data_collator([tokenized_datasets["train"][i] for i in range(4, 6)])
-print(batch.keys())
-
 
