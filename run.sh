@@ -26,7 +26,8 @@ cp -r $DATADIR/Helsinki-NLP  $SCRATCHDIR || { echo >&2 "Error while copying inpu
 
 # installing packages
 # pip install datasets transformers sentencepiece sacrebleu
-# pip install evaluate
+pip install evaluate
+pip install evaluate[evaluator]
 
 # move into scratch directory
 cd $SCRATCHDIR
