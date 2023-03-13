@@ -39,11 +39,10 @@ dataset = DatasetDict({'train': train, 'test': test, 'validation': dev})
 
 model_checkpoint = "./Helsinki-NLP/serbian-opus-mt-tc-base-en-sh"
 model = MarianMTModel.from_pretrained(model_checkpoint)
-data = dataset
 metric = evaluate.load("sacrebleu")
 
 task_evaluator = evaluator("translation")
-results = task_evaluator.compute(model_or_pipeline=model, data=data, metric=metric,)
+results = task_evaluator.compute(model_or_pipeline=model, data=dataset, metric=metric,)
 
 print(f"evaluation of sacrebleu of the model {model_checkpoint}:")
 print(results)
