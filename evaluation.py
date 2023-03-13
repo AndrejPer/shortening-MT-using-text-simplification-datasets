@@ -19,7 +19,11 @@ model = MarianMTModel.from_pretrained(model_checkpoint)
 metric = evaluate.load("sacrebleu")
 
 task_evaluator = evaluator("translation")
-results = task_evaluator.compute(model_or_pipeline=model, data=test, metric=metric,)
+results = task_evaluator.compute(
+    model_or_pipeline=model,
+    data=test,
+    metric=metric,
+    input_column="translation")
 
 print(f"evaluation of sacrebleu of the model {model_checkpoint}:")
 print(results)
