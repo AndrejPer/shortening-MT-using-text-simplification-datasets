@@ -16,11 +16,13 @@ test = Dataset.from_dict(test)
 
 model_checkpoint = "./Helsinki-NLP/serbian-opus-mt-tc-base-en-sh"
 model = MarianMTModel.from_pretrained(model_checkpoint)
+tokenizer = MarianTokenizer.from_pretrained(model_checkpoint)
 metric = evaluate.load("sacrebleu")
 
 task_evaluator = evaluator("translation")
 results = task_evaluator.compute(
     model_or_pipeline=model,
+    tokenizer=tokenizer,
     data=test,
     metric=metric,
     input_column="translation")
