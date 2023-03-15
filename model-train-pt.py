@@ -1,5 +1,5 @@
 from datasets import DatasetDict, Dataset
-from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM, DataCollatorForSeq2Seq, Seq2SeqTrainingArguments, Seq2SeqTrainer, DataCollatorForSeq2Seq
+from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM, DataCollatorForSeq2Seq, Seq2SeqTrainingArguments, Seq2SeqTrainer
 
 a_file = open("opus.en-sr-train.en")
 file_contents = a_file.read()
@@ -43,11 +43,11 @@ print(translator("Unable to import %1 using the OFX importer plugin. This file i
 
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint, return_tensors="pt")
 
-en_sentence = dataset["train"][1]["translation"]["en"]
-sr_sentence = dataset["train"][1]["translation"]["sr"]
+# en_sentence = dataset["train"][1]["translation"]["en"]
+# sr_sentence = dataset["train"][1]["translation"]["sr"]
 
-inputs = tokenizer(en_sentence, text_target=sr_sentence)
-print(inputs)
+# inputs = tokenizer(en_sentence, text_target=sr_sentence)
+# print(inputs)
 
 max_length = 128
 
@@ -116,7 +116,6 @@ args = Seq2SeqTrainingArguments(
     fp16=True,
 )
 
-
 trainer = Seq2SeqTrainer(
     model,
     args,
@@ -127,11 +126,11 @@ trainer = Seq2SeqTrainer(
     compute_metrics=compute_metrics,
 )
 
-print("evaluation before training: ")
-print(trainer.evaluate(max_length=max_length))
+#print("evaluation before Serbian training: ")
+#print(trainer.evaluate(max_length=max_length))
 
 trainer.train()
-print("evaluation after training: ")
+print("evaluation after Serbian training: ")
 print(trainer.evaluate(max_length=max_length))
 
 new_model_checkpoint = "Helsinki-NLP/serbian-opus-mt-tc-base-en-sh"
