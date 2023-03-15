@@ -2,7 +2,7 @@
 
 # define a DATADIR variable: directory where the input files are taken from and where output will be copied to
 DATADIR=/storage/praha1/home/andrejp/MT/shortening-MT-using-text-simplification-datasets
-PYTHONPROG=evaluation.py
+PYTHONPROG=model-train-pt.py
 
 echo "$PBS_JOBID is running on node `hostname -f` in a scratch directory $SCRATCHDIR" >> $DATADIR/jobs_info.txt
 
@@ -22,12 +22,10 @@ cp $DATADIR/opus-100/opus.en-sr-train.en  $SCRATCHDIR || { echo >&2 "Error while
 cp $DATADIR/opus-100/opus.en-sr-train.sr  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 cp $DATADIR/opus-100/opus.en-sr-dev.en  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 cp $DATADIR/opus-100/opus.en-sr-dev.sr  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
-cp -r $DATADIR/Helsinki-NLP  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 
 # installing packages
 # pip install datasets transformers sentencepiece sacrebleu
-pip install evaluate
-pip install evaluate[evaluator]
+# pip install evaluate
 
 # move into scratch directory
 cd $SCRATCHDIR
@@ -37,7 +35,8 @@ source $DATADIR/../env/bin/activate
 python $PYTHONPROG || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 
 # move the output to user's DATADIR or exit in case of failure
-# cp -r ./* $DATADIR/results_normal_trans || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
+mkdir $DATADIR/results_serbian_2
+cp -r ./* $DATADIR/results_serbian_2 || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
 
 # clean the SCRATCH directory
 clean_scratch
