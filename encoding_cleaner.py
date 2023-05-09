@@ -1,4 +1,4 @@
-file_name = "opus.en-sr-test.sr"
+file_name = "opus.en-sr-train.sr"
 fp = open("./opus-100/" + file_name)
 text = "".join(fp.readlines())
 new_text = ""
@@ -19,18 +19,22 @@ for i in text:
     if(i == "è"):
         i = "č"
 
+    elif (i == "È"):
+        i = "Č"
+
     elif(i == "æ"):
         i = "ć"
 
-    elif(i == "È"):
-        i = "Č"
+    elif (i == "æ".upper()):
+        i = "ć".upper()
+
 
     elif(i == "ð"):
         i = "đ"
 
     elif (i == "ð".upper()):
         i = "đ".upper()
-        print(i)
+        #print(i)
 
     elif i in cyrillic_to_latin_dict:
         i = cyrillic_to_latin_dict[i]
@@ -41,7 +45,7 @@ for i in text:
     #print(f"new text: {new_text}")
 
 print(type(new_text))
-print(new_text)
+#print(new_text)
 
 fnew = open("corrected." + file_name, "w")
 fnew.write(new_text)
