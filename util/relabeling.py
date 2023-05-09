@@ -1,6 +1,6 @@
 print("start")
 fp = open("mock", "r")
-fnew = open("relabeled_ppdb_small.csv", "w")
+fnew = open("../relabeled_ppdb_small.csv", "w")
 while True:
     line = fp.readline()
     if not line:
