@@ -1,12 +1,12 @@
 print("start")
-fp = open("relabeled_ppdb_small.csv", "r")
-fnew = open("sorted_ppdb_small.csv", "w")
+fp = open("../relabeled_ppdb_small.csv", "r")
+fnew = open("../sorted_ppdb_small.csv", "w")
 minLine = ""
 minVal = float('inf')
 lowerBound = float('-inf')
 while True:
     # find the maximum ration and the line it appears at
-    fp = open("relabeled_ppdb_small.csv", "r") #open the file every time
+    fp = open("../relabeled_ppdb_small.csv", "r") #open the file every time
     while True:
         line = fp.readline()
         #print(line)

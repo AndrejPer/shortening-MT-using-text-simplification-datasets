@@ -1,7 +1,7 @@
 import pandas as pd
 
 column_names = ['Tag', 'Longer', 'Shorter', 'Score', 'Ratio', 'Equivalence']
-df = pd.read_csv("relabeled_ppdb_small.csv", delimiter=' \|\|\| ', engine='python', names=column_names)
+df = pd.read_csv("../relabeled_ppdb_small.csv", delimiter=' \|\|\| ', engine='python', names=column_names)
 df = df.drop_duplicates()
 print(df)
 
