@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -N blue_sr
+#PBS -N trans_normal
 #PBS -q gpu
 #PBS -l select=1:ncpus=1:mem=128gb:scratch_local=128gb:ngpus=1
 #PBS -l walltime=8:00:00
