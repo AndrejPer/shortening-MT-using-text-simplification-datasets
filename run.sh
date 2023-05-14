@@ -2,7 +2,8 @@
 
 # define a DATADIR variable: directory where the input files are taken from and where output will be copied to
 DATADIR=/storage/praha1/home/andrejp/MT/shortening-MT-using-text-simplification-datasets
-PYTHONPROG=translation.py
+PYTHONPROG=evaluation.py
+PROGDIR=report
 
 echo "$PBS_JOBID is running on node `hostname -f` in a scratch directory $SCRATCHDIR" >> $DATADIR/jobs_info.txt
 
@@ -15,7 +16,7 @@ test -n "$SCRATCHDIR" || { echo >&2 "Variable SCRATCHDIR is not set!"; exit 1; }
 
 # copy input files to scratch directory
 # if the copy operation fails, issue error message and exit
-cp $DATADIR/util/$PYTHONPROG  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/$PROGDIR/$PYTHONPROG  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 cp $DATADIR/opus-100/opus.en-sr-test.en   $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 cp $DATADIR/opus-100/corrected.opus.en-sr-test.sr  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 cp -r $DATADIR/results_ft_2/Helsinki-NLP $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
@@ -32,8 +33,8 @@ source $DATADIR/../env/bin/activate
 python $PYTHONPROG || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 
 # move the output to user's DATADIR or exit in case of failure
-mkdir $DATADIR/results_corrected_short_trans
-cp -r ./* $DATADIR/results_corrected_short_trans || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
+mkdir $DATADIR/results_corr_norm_eval
+cp -r ./* $DATADIR/results_corr_norm_eval || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
 
 # clean the SCRATCH directory
 clean_scratch
