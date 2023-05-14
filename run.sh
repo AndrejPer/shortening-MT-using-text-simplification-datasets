@@ -33,8 +33,8 @@ source $DATADIR/../env/bin/activate
 python $PYTHONPROG || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 
 # move the output to user's DATADIR or exit in case of failure
-mkdir $DATADIR/results_corr_norm_eval
-cp -r ./* $DATADIR/results_corr_norm_eval || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
+mkdir $DATADIR/results_corr_short_eval
+cp -r ./* $DATADIR/results_corr_short_eval || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
 
 # clean the SCRATCH directory
 clean_scratch

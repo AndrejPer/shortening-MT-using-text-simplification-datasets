@@ -14,7 +14,7 @@ test = {'translation': [{"en": eng_text, "sr": srb_text} for eng_text, srb_text 
 test_sentences = [sentence for sentence in en_test_split]
 test = Dataset.from_dict(test)
 
-model_checkpoint = "./Helsinki-NLP/serbian-opus-mt-tc-base-en-sh"
+model_checkpoint = "./Helsinki-NLP/shortS-opus-mt-tc-base-en-sh"
 model = MarianMTModel.from_pretrained(model_checkpoint)
 tokenizer = MarianTokenizer.from_pretrained(model_checkpoint)
 metric = evaluate.load("sacrebleu")
