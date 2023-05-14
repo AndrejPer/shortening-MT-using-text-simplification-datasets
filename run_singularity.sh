@@ -1,8 +1,8 @@
 #!/bin/bash
-#PBS -N eval_normal
+#PBS -N eval_short
 #PBS -q gpu
-#PBS -l select=1:ncpus=1:mem=64gb:scratch_local=64gb:ngpus=1
-#PBS -l walltime=5:00:00
+#PBS -l select=1:ncpus=1:mem=32gb:scratch_local=32gb:ngpus=1
+#PBS -l walltime=8:00:00
 #PBS -m abe
 
 export PYTHONUSERBASE=/storage/praha1/home/andrejp/PUB-PyTorch21.11
