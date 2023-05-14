@@ -1,7 +1,7 @@
 #!/bin/bash
-#PBS -N trans_short
+#PBS -N eval_normal
 #PBS -q gpu
-#PBS -l select=1:ncpus=1:mem=128gb:scratch_local=128gb:ngpus=1
+#PBS -l select=1:ncpus=1:mem=64gb:scratch_local=64gb:ngpus=1
 #PBS -l walltime=5:00:00
 #PBS -m abe
 

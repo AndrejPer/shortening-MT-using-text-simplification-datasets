@@ -1,9 +1,9 @@
 from transformers import MarianMTModel, MarianTokenizer
-from datasets import DatasetDict, Dataset
+from datasets import Dataset
 from evaluate import evaluator
 import evaluate
 
-a_file = open("opus.en-sr-test.sr")
+a_file = open("corrected.opus.en-sr-test.sr")
 file_contents = a_file.read()
 sr_test_split = file_contents.splitlines()
 a_file = open("opus.en-sr-test.en")
