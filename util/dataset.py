@@ -11,12 +11,10 @@ parser.add_argument("--num_rules", type=int, default=1000, help="Number of first
 
 parser.add_argument("--input_file", type=str, default="opus.en-sr-train.en", help="Training set for Eng->Sr")
 parser.add_argument("--output_path", type=str, default="./", help="")
-parser.add_argument("--csv_file", type=str, default="sorted_ppdb_m_lexical.csv", help="CSV file with the rules")
+parser.add_argument("--csv_file", type=str, default="sorted_ppdb_l_lexical.csv", help="CSV file with the rules")
 args = parser.parse_args()
 
-report_file = open("report_s_lexical_app.txt", "w")
 print(f"Modifying {args.num_sentences} sentences using {args.num_rules} paraphrasing rules.")
-# print(f"Modifying {args.num_sentences} sentences using {args.num_rules} paraphrasing rules.", file=report_file)
 
 input_file = open(args.input_file)
 
@@ -38,6 +36,7 @@ for i, rule in rules.iterrows():
             or rule["Shorter"].strip() + "ing" == rule["Longer"].strip() \
             or rule["Shorter"].strip() + rule["Shorter"].strip()[-1] + "ing" == rule["Longer"].strip() \
             or rule["Tag"] == "NNS" and (rule["Shorter"].strip()[-1] != 's' and rule["Longer"].strip()[-1] != 's'):
+        print(f"Continued for ({rule['Shorter']}, {rule['Longer']})")
         continue
 
     # Using `\b` for detecting word boundaries
@@ -46,14 +45,12 @@ for i, rule in rules.iterrows():
     # Info logging, so we see the state of our computation
     if n != 0:
         print(f"Applying {i}. rule: ({rule.Shorter.strip()} -> {rule.Longer.strip()}) with {n} replacements")
-        # print(f"Applying {i}. rule: ({rule.Shorter.strip()} -> {rule.Longer.strip()}) with {n} replacements", file=report_file)
 
     counter += n
 
 print(f"Number of replacements: {counter}")
 
 # output_file = open(f"{args.output_path}/opus_{args.num_rules}_{args.num_sentences}.en-sr-train.en", "w")
-output_file = open(f"opus_{args.num_rules}_{args.num_sentences}_m.en-sr-train.en", "w")
+output_file = open(f"opus_{args.num_rules}_{args.num_sentences}_l.en-sr-train.en", "w")
 output_file.write(text)
 output_file.close()
-report_file.close()
