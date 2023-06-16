@@ -16,9 +16,9 @@ test -n "$SCRATCHDIR" || { echo >&2 "Variable SCRATCHDIR is not set!"; exit 1; }
 
 # copy input files to scratch directory
 # if the copy operation fails, issue error message and exit
-cp $DATADIR/$PROGDIR/$PYTHONPROG  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
-cp $DATADIR/opus-100/opus.en-sr-train.en   $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
-cp $DATADIR/sorted_ppdb/sorted_ppdb_s_lexical.csv  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/$PROGDIR/$PYTHONPROG $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/opus-100/opus.en-sr-train.en $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/sorted_ppdb/sorted_ppdb_s_lexical.csv $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 
 # installing packages
 # pip install datasets transformers sentencepiece sacrebleu
@@ -26,6 +26,7 @@ cp $DATADIR/sorted_ppdb/sorted_ppdb_s_lexical.csv  $SCRATCHDIR || { echo >&2 "Er
 
 # move into scratch directory
 cd $SCRATCHDIR
+ls -la
 
 # run Python script
 source $DATADIR/../env/bin/activate
