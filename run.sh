@@ -17,7 +17,7 @@ test -n "$SCRATCHDIR" || { echo >&2 "Variable SCRATCHDIR is not set!"; exit 1; }
 # copy input files to scratch directory
 # if the copy operation fails, issue error message and exit
 cp $DATADIR/$PROGDIR/$PYTHONPROG $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
-cp $DATADIR/opus-100/opus_12836_1000000_m.en-sr-train.en $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/opus-100/opus_15838_1000000_l.en-sr-train.en $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 cp $DATADIR/opus-100/corrected.opus.en-sr-train.sr $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 cp $DATADIR/opus-100/opus.en-sr-test.en $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 cp $DATADIR/opus-100/corrected.opus.en-sr-test.sr $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
@@ -37,8 +37,8 @@ source $DATADIR/../env/bin/activate
 python $PYTHONPROG || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 
 # move the output to user's DATADIR or exit in case of failure
-mkdir $DATADIR/results_train_M
-cp -r ./* $DATADIR/results_train_M || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
+mkdir $DATADIR/results_train_L
+cp -r ./* $DATADIR/results_train_L || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
 
 # clean the SCRATCH directory
 clean_scratch
