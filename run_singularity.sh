@@ -1,7 +1,7 @@
 #!/bin/bash
-#PBS -N train_M
+#PBS -N train_L
 #PBS -q gpu
-#PBS -l select=1:ncpus=1:mem=64gb:scratch_local=64gb:ngpus=1
+#PBS -l select=1:ncpus=1:mem=32gb:scratch_local=32gb:ngpus=1
 #PBS -l walltime=8:00:00
 #PBS -m abe
 
