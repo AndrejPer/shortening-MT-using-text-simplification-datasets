@@ -9603,7 +9603,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [JJ]|bla|blah|0-0|0.75|Equivalence
 [NN]|laptop|portable|0-0|0.75|Equivalence
 [NNP]|moderator|facilitators|0-0|0.75|Equivalence
-[NN]|nil||0-0|0.75|Equivalence
 [NNP]|portables|man-portable|0-0|0.75|Equivalence
 [JJ]|famous|renowned|0-0|0.75|Equivalence
 [NNS]|dreams|dreaming|0-0|0.75|Equivalence
@@ -9634,7 +9633,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [JJ]|forced|forcible|0-0|0.75|Equivalence
 [JJ]|police|policing|0-0|0.75|Equivalence
 [NN]|secure|securing|0-0|0.75|Equivalence
-[CD]|.46|0,46|0-0|0.75|Equivalence
 [VBZ]|widens|increase|0-0|0.75|Equivalence
 [VBD]|cooperate|collaborated|0-0|0.75|Equivalence
 [JJ]|2-page|two-page|0-0|0.75|Equivalence
