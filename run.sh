@@ -1,36 +1,35 @@
 #!/bin/bash
-
 # define a DATADIR variable: directory where the input files are taken from and where output will be copied to
 DATADIR=/storage/praha1/home/andrejp/MT/shortening-MT-using-text-simplification-datasets
-PYTHONPROG=translation.py
-PROGDIR=./util
-
+PYTHONPROG=dataset.py
+PROGDIR=util
 echo "$PBS_JOBID is running on node `hostname -f` in a scratch directory $SCRATCHDIR" >> $DATADIR/jobs_info.txt
-
 # load Python
 module add python/3.8.0-gcc
-
 # test if scratch directory is set
 # if scratch directory is not set, issue error message and exit
 test -n "$SCRATCHDIR" || { echo >&2 "Variable SCRATCHDIR is not set!"; exit 1; }
-
 # copy input files to scratch directory
 # if the copy operation fails, issue error message and exit
 cp $DATADIR/$PROGDIR/$PYTHONPROG $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
-cp $DATADIR/opus-100/opus.en-sr-test.en $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
-cp $DATADIR/opus-100/corrected.opus.en-sr-test.sr $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
-cp -r $DATADIR/results_train_L/Helsinki-NLP $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/opus-100/opus.en-sr-train.en $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/sorted_ppdb/sorted_ppdb_xl_lexical.csv $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 
+# installing packages
+# pip install datasets transformers sentencepiece sacrebleu
+# pip install evaluate
 # move into scratch directory
 cd $SCRATCHDIR
+ls -la
 
 # run Python script
 source $DATADIR/../env/bin/activate
 python $PYTHONPROG || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
+python $PYTHONPROG --num_rules 25957 || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 
 # move the output to user's DATADIR or exit in case of failure
-mkdir $DATADIR/results_trans_L
-cp -r ./* $DATADIR/results_trans_L || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
+mkdir $DATADIR/results_app_XL
+cp -r ./* $DATADIR/results_app_XL || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
 
 # clean the SCRATCH directory
 clean_scratch
