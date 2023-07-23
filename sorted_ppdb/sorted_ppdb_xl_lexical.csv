@@ -10075,7 +10075,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [NN]|extant|existing|0-0|0.75|Equivalence
 [JJ]|dredge|dredging|0-0|0.75|Equivalence
 [VBP]|dip|drop|0-0|0.75|Equivalence
-[VB]|nil||0-0|0.75|Equivalence
 [RB]|purposely|deliberately|0-0|0.75|Equivalence
 [NNS]|chosen|selected|0-0|0.75|Equivalence
 [NNP]|impartiality|non-partisanship|0-0|0.75|Equivalence

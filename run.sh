@@ -18,11 +18,9 @@ cp $DATADIR/sorted_ppdb/sorted_ppdb_xl_lexical.csv $SCRATCHDIR || { echo >&2 "Er
 
 # move into scratch directory
 cd $SCRATCHDIR
-ls -la
 
 # run Python script
 source $DATADIR/../env/bin/activate
-python $PYTHONPROG || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 python $PYTHONPROG --num_rules 25957 || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 
 # move the output to user's DATADIR or exit in case of failure
