@@ -11,7 +11,7 @@ parser.add_argument("--num_rules", type=int, default=1000, help="Number of first
 
 parser.add_argument("--input_file", type=str, default="opus.en-sr-train.en", help="Training set for Eng->Sr")
 parser.add_argument("--output_path", type=str, default="./", help="")
-parser.add_argument("--csv_file", type=str, default="sorted_ppdb_l_lexical.csv", help="CSV file with the rules")
+parser.add_argument("--csv_file", type=str, default="sorted_ppdb_xl_lexical.csv", help="CSV file with the rules")
 args = parser.parse_args()
 
 print(f"Modifying {args.num_sentences} sentences using {args.num_rules} paraphrasing rules.")
@@ -24,6 +24,7 @@ input_file.close()
 text = "".join(lines)
 
 rules = pd.read_csv(args.csv_file, delimiter="\|", nrows=args.num_rules, engine="python")
+print(f"Starting application of {len(rules)} rules")
 
 counter = 0
 for i, rule in rules.iterrows():
@@ -36,7 +37,7 @@ for i, rule in rules.iterrows():
             or rule["Shorter"].strip() + "ing" == rule["Longer"].strip() \
             or rule["Shorter"].strip() + rule["Shorter"].strip()[-1] + "ing" == rule["Longer"].strip() \
             or rule["Tag"] == "NNS" and (rule["Shorter"].strip()[-1] != 's' and rule["Longer"].strip()[-1] != 's'):
-        print(f"Continued for ({rule['Shorter']}, {rule['Longer']})")
+        print(f"Continued for {i} ({rule['Shorter']} -> {rule['Longer']})")
         continue
 
     # Using `\b` for detecting word boundaries
@@ -51,6 +52,6 @@ for i, rule in rules.iterrows():
 print(f"Number of replacements: {counter}")
 
 # output_file = open(f"{args.output_path}/opus_{args.num_rules}_{args.num_sentences}.en-sr-train.en", "w")
-output_file = open(f"opus_{args.num_rules}_{args.num_sentences}_l.en-sr-train.en", "w")
+output_file = open(f"opus_{args.num_rules}_{args.num_sentences}_xl.en-sr-train.en", "w")
 output_file.write(text)
 output_file.close()
