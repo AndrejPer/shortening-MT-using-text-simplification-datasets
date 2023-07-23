@@ -1,7 +1,7 @@
 s = "Nice. To. Meet. You."
 print(len(list(filter(str.isalpha, s))))
 
-raw = open("../translations/raw_translation.txt", "r")
+raw = open("../translations/normal_translation.txt", "r")
 raw_lines = raw.readlines()
 raw.close()
 raw_trans = "".join(raw_lines)
@@ -11,9 +11,9 @@ fine_lines = fine.readlines()
 fine.close()
 fine_trans = "".join(fine_lines)
 
-raw_count = len(list(filter(str.isalpha, raw_trans)))
-fine_count = len(list(filter(str.isalpha, fine_trans)))
+raw_count = len(list(filter(str.isalnum, raw_trans)))
+fine_count = len(list(filter(str.isalnum, fine_trans)))
 
 ratio = (raw_count - fine_count) / raw_count
 print(ratio)
-print(f"fine:{fine_count} and raw:{raw_count}")
+print(f"fine:{fine_count}\nraw:{raw_count}\ndiff:{raw_count - fine_count}")

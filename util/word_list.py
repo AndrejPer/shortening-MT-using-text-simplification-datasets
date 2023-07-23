@@ -33,6 +33,6 @@ def main(file_path1, file_path2):
 
 
 if __name__ == "__main__":
-    file_path1 = "../translations/fine-tuned_translation.txt"  # Replace this with the path to the shortening text file
-    file_path2 = "../translations/fixed_normal_translation.txt"  # Replace this with the path to the normal text file
+    file_path1 = "../translations/corrected_short_translation.txt"  # Replace this with the path to the shortening text file
+    file_path2 = "../translations/corrected_normal_translation.txt"  # Replace this with the path to the normal text file
     main(file_path1, file_path2)
