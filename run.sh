@@ -9,15 +9,13 @@ module add python/3.8.0-gcc
 # test if scratch directory is set
 # if scratch directory is not set, issue error message and exit
 test -n "$SCRATCHDIR" || { echo >&2 "Variable SCRATCHDIR is not set!"; exit 1; }
+
 # copy input files to scratch directory
 # if the copy operation fails, issue error message and exit
 cp $DATADIR/$PROGDIR/$PYTHONPROG $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 cp $DATADIR/opus-100/opus.en-sr-train.en $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
-cp $DATADIR/sorted_ppdb/sorted_ppdb_xl_lexical.csv $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/sorted_ppdb/sorted_ppdb_xxl_lexical.csv $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 
-# installing packages
-# pip install datasets transformers sentencepiece sacrebleu
-# pip install evaluate
 # move into scratch directory
 cd $SCRATCHDIR
 ls -la
@@ -25,11 +23,11 @@ ls -la
 # run Python script
 source $DATADIR/../env/bin/activate
 python $PYTHONPROG || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
-python $PYTHONPROG --num_rules 25957 || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
+python $PYTHONPROG --num_rules 34656 || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 
 # move the output to user's DATADIR or exit in case of failure
-mkdir $DATADIR/results_app_XL
-cp -r ./* $DATADIR/results_app_XL || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
+mkdir $DATADIR/results_app_XXL
+cp -r ./* $DATADIR/results_app_XXL || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
 
 # clean the SCRATCH directory
 clean_scratch
