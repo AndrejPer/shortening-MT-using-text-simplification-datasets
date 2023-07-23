@@ -37,20 +37,9 @@ dataset = DatasetDict({'train': train, 'test': test, 'validation': dev})
 
 model_checkpoint = "Helsinki-NLP/opus-mt-tc-base-en-sh"
 translator = pipeline("translation", model=model_checkpoint)
-print(translator("Default to expanded threads"))
-print(translator("Unable to import %1 using the OFX importer plugin. This file is not the correct format."))
-
 
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint, return_tensors="pt")
-
-# en_sentence = dataset["train"][1]["translation"]["en"]
-# sr_sentence = dataset["train"][1]["translation"]["sr"]
-
-# inputs = tokenizer(en_sentence, text_target=sr_sentence)
-# print(inputs)
-
 max_length = 128
-
 
 def preprocess_function(examples):
     inputs = [ex["en"] for ex in examples["translation"]]
@@ -66,7 +55,6 @@ tokenized_datasets = dataset.map(
     batched=True,
     remove_columns=dataset["train"].column_names,
 )
-
 
 model = AutoModelForSeq2SeqLM.from_pretrained(model_checkpoint)
 data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
@@ -126,10 +114,8 @@ trainer = Seq2SeqTrainer(
     compute_metrics=compute_metrics,
 )
 
-# print("evaluation before Serbian training: ")
-# print(trainer.evaluate(max_length=max_length))
-
 trainer.train()
+
 print("evaluation after PPDB L training: ")
 print(trainer.evaluate(max_length=max_length))
 
