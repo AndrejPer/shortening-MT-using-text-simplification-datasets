@@ -12,7 +12,7 @@ en_test_split = fp.read().splitlines()
 padded_test_set = [">>srp_Latn<< " + sentence for sentence in en_test_split]
 trans_sentences = translator(padded_test_set)
 trans_file = open("raw_translation.txt", "w")
-print("here")
+print("here, starting trans")
 for t in trans_sentences:
     print(t)
     trans_file.write(t["translation_text"]+"\n")
