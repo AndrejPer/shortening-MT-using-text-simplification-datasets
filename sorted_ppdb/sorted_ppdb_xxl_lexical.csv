@@ -12526,7 +12526,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [NN]|desire|desiring|0-0|0.75|Equivalence
 [NNP]|antitrust|antimonopoly|0-0|0.75|Equivalence
 [NNP]|rocket|missiles|0-0|0.75|Equivalence
-[NN]|nil||0-0|0.75|Equivalence
 [UH]|browse|navigate|0-0|0.75|Equivalence
 [JJ]|mom|mama|0-0|0.75|Equivalence
 [CC]|fantastic|unbelievable|0-0|0.75|Equivalence
