@@ -20,7 +20,7 @@ parser.add_argument("--num_rules", type=int, default=1000, help="Number of first
 
 parser.add_argument("--input_file", type=str, default="opus.en-sr-train.en", help="Training set for Eng->Sr")
 parser.add_argument("--output_path", type=str, default="./", help="")
-parser.add_argument("--csv_file", type=str, default="sorted_ppdb_xl_lexical.csv", help="CSV file with the rules")
+parser.add_argument("--csv_file", type=str, default="sorted_ppdb_s_lexical.csv", help="CSV file with the rules")
 args = parser.parse_args()
 
 print(f"Modifying {args.num_sentences} sentences using {args.num_rules} paraphrasing rules.")
@@ -44,7 +44,6 @@ for i, rule in rules.iterrows():
     # - they are not a "turn -> turning" type og rule
     # - they wrongly paraphrase plurals
     if not has_letter(rule["Shorter"].strip()) \
-            or has_punctuation(rule["Shorter"].strip()) \
             or rule["Ratio"] == "1.0" \
             or rule["Shorter"].strip() + "ing" == rule["Longer"].strip() \
             or rule["Shorter"].strip() + rule["Shorter"].strip()[-1] + "ing" == rule["Longer"].strip() \
