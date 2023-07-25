@@ -5363,7 +5363,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [NN]|prisoner|inmate|0-0|0.75|Equivalence
 [VB]|relaunch|revive|0-0|0.75|Equivalence
 [IN]|used|use|0-0|0.75|Equivalence
-[JJ]|nos.|no.|0-0|0.75|Equivalence
 [NNP]|palestinians|palestine|0-0|0.75|Equivalence
 [NNP]|nepalese|nepali|0-0|0.75|Equivalence
 [NNPS]|meps|mps|0-0|0.75|Equivalence
@@ -5400,7 +5399,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [JJ]|entertaining|entertain|0-0|0.75|Equivalence
 [NNS]|died|die|0-0|0.75|Equivalence
 [NNP]|scottish|scotch|0-0|0.75|Equivalence
-[VBP]|nos.|no.|0-0|0.75|Equivalence
 [JJ]|jews|jew|0-0|0.75|Equivalence
 [JJ]|hallowed|sacred|0-0|0.75|Equivalence
 [NNS]|shortcomings|shortages|0-0|0.75|Equivalence
@@ -5695,7 +5693,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [NN]|updating|update|0-0|0.75|Equivalence
 [NNPS]|ecus|ecu|0-0|0.75|Equivalence
 [NN]|soya|soy|0-0|0.75|Equivalence
-[VBD]|nos.|no.|0-0|0.75|Equivalence
 [CD]|changing|change|0-0|0.75|Equivalence
 [JJ]|rejected|reject|0-0|0.75|Equivalence
 [JJ]|left-leaning|left-wing|0-0|0.75|Equivalence
@@ -6015,7 +6012,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [VBN]|deceived|misled|0-0|0.75|Equivalence
 [NNPS]|catastrophes|disasters|0-0|0.75|Equivalence
 [VBG]|contravening|violating|0-0|0.75|Equivalence
-[NNP]|nos.|no.|0-0|0.75|Equivalence
 [NN]|ethylene|ethene|0-0|0.75|Equivalence
 [NN]|re-exporting|re-export|0-0|0.75|Equivalence
 [NNS]|housings|houses|0-0|0.75|Equivalence
@@ -6045,7 +6041,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [JJ]|-or-|-o-|0-0|0.75|Equivalence
 [JJ]|accursed|cursed|0-0|0.75|Equivalence
 [RB]|eighthly|eighth|0-0|0.75|Equivalence
-[NN]|lbs.|lb.|0-0|0.75|Equivalence
 [NNS]|heathens|pagans|0-0|0.75|Equivalence
 [NN]|accumulation|accretion|0-0|0.75|Equivalence
 [JJ]|declared|stated|0-0|0.75|Equivalence
@@ -10742,7 +10737,7 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [RB]|useable|usable|0-0|0.8571428571428571|Equivalence
 [VBN]|dropped|dipped|0-0|0.8571428571428571|Equivalence
 [JJ]|ugandan|uganda|0-0|0.8571428571428571|Equivalence
-[FW]|bellow.|below.|0-0|0.8571428571428571|Equivalence
+[FW]|bellow|below|0-0|0.8571428571428571|Equivalence
 [JJ]|state-financed|state-funded|0-0|0.8571428571428571|Equivalence
 [JJ]|pre-conference|pre-congress|0-0|0.8571428571428571|Equivalence
 [NN]|comfort|solace|0-0|0.8571428571428571|Equivalence
@@ -11648,7 +11643,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [RB]|brutally|cruelly|0-0|0.875|Equivalence
 [NNP]|muthanna|muthana|0-0|0.875|Equivalence
 [NNP]|fallujah|falluja|0-0|0.875|Equivalence
-[CD]|57.54lbs|57.54lb|0-0|0.875|Equivalence
 [JJ]|vaccines|vaccine|0-0|0.875|Equivalence
 [VBD]|analysis|analyse|0-0|0.875|Equivalence
 [VBD]|exchange|sharing|0-0|0.875|Equivalence
