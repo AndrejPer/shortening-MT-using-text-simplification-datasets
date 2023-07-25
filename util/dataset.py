@@ -8,7 +8,7 @@ def has_letter(input_string):
 
 
 def has_punctuation(input_string):
-    return bool(re.search(r'[!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~]', input_string)) # all punctuation signs besides "-"
+    return bool(re.search(r'[!"#$%&\'()*+,/:;<=>?@[\\]^_`{|}~]', input_string)) # all punctuation signs besides "-"
 
 
 # PARSING
@@ -20,7 +20,7 @@ parser.add_argument("--num_rules", type=int, default=1000, help="Number of first
 
 parser.add_argument("--input_file", type=str, default="opus.en-sr-train.en", help="Training set for Eng->Sr")
 parser.add_argument("--output_path", type=str, default="./", help="")
-parser.add_argument("--csv_file", type=str, default="sorted_ppdb_l_lexical.csv", help="CSV file with the rules")
+parser.add_argument("--csv_file", type=str, default="sorted_ppdb_xl_lexical.csv", help="CSV file with the rules")
 args = parser.parse_args()
 
 print(f"Modifying {args.num_sentences} sentences using {args.num_rules} paraphrasing rules.")
@@ -53,8 +53,8 @@ for i, rule in rules.iterrows():
         continue
 
     # Using `\b` for detecting word boundaries
-    # print(text)
-    text, n = re.subn("\\b" + rule["Shorter"].strip() + "\\b", rule["Longer"].strip(), text)
+    # Using replace(), so that a dot is not interpreted as wildcard
+    text, n = re.subn("\\b" + rule["Shorter"].replace('.', '\.').strip() + "\\b", rule["Longer"].strip(), text)
     print("\\b" + rule["Shorter"].strip() + "\\b")
     print("|" + rule["Longer"] + "|")
 
