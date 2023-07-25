@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -N train_trans_S
+#PBS -N train_trans_M
 #PBS -q gpu
 #PBS -l select=1:ncpus=1:mem=200gb:scratch_local=200gb:ngpus=1
 #PBS -l walltime=15:00:00
