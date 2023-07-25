@@ -20,7 +20,7 @@ parser.add_argument("--num_rules", type=int, default=1000, help="Number of first
 
 parser.add_argument("--input_file", type=str, default="opus.en-sr-train.en", help="Training set for Eng->Sr")
 parser.add_argument("--output_path", type=str, default="./", help="")
-parser.add_argument("--csv_file", type=str, default="sorted_ppdb_s_lexical.csv", help="CSV file with the rules")
+parser.add_argument("--csv_file", type=str, default="sorted_ppdb_m_lexical.csv", help="CSV file with the rules")
 args = parser.parse_args()
 
 print(f"Modifying {args.num_sentences} sentences using {args.num_rules} paraphrasing rules.")
@@ -66,6 +66,6 @@ for i, rule in rules.iterrows():
 print(f"Number of replacements: {counter}")
 
 # output_file = open(f"{args.output_path}/opus_{args.num_rules}_{args.num_sentences}.en-sr-train.en", "w")
-output_file = open(f"opus_{args.num_rules}_{args.num_sentences}.en-sr-train.en", "w")
+output_file = open(f"opus_{args.num_rules}_{args.num_sentences}_2.en-sr-train.en", "w")
 output_file.write(text)
 output_file.close()
