@@ -1,7 +1,7 @@
 #!/bin/bash
-#PBS -N app_S_old
-#PBS -l select=1:ncpus=1:mem=64gb:scratch_local=64gb
-#PBS -l walltime=5:00:00
+#PBS -N app_S_
+#PBS -l select=1:ncpus=1:mem=32gb:scratch_local=32gb
+#PBS -l walltime=4:00:00
 #PBS -m abe
 
 export PYTHONUSERBASE=/storage/praha1/home/andrejp/PUB-PyTorch21.11

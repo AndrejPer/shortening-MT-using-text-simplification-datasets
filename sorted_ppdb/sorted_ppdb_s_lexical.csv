@@ -3494,7 +3494,7 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [NNS]|shifting|shifts|0-0|0.75|Equivalence
 [VBN]|unparalleled|unmatched|0-0|0.75|Equivalence
 [JJ]|russian-u.s.|russia-us|0-0|0.75|Equivalence
-[VBP]|nos.|no.|0-0|0.75|Equivalence
+[JJ]|russian-u.s.|russia-us|0-0|0.75|Equivalence
 [JJ]|left-leaning|left-wing|0-0|0.75|Equivalence
 [JJ]|unloaded|unload|0-0|0.75|Equivalence
 [JJ]|well-coordinated|co-ordinated|0-0|0.75|Equivalence
@@ -3654,7 +3654,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [NN]|recommending|recommend|0-0|0.75|Equivalence
 [JJ]|e-mailed|e-mail|0-0|0.75|Equivalence
 [JJ]|israeli-egyptian|israel-egypt|0-0|0.75|Equivalence
-[CD]|0,95|.95|0-0|0.75|Equivalence
 [VBG]|volunteering|voluntary|0-0|0.75|Equivalence
 [NN]|enabling|enable|0-0|0.75|Equivalence
 [VBD]|amounted|summed|0-0|0.75|Equivalence
@@ -3742,7 +3741,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [JJ]|exclusionary|exclusive|0-0|0.75|Equivalence
 [RB]|scarcely|barely|0-0|0.75|Equivalence
 [NNPS]|warnings|alerts|0-0|0.75|Equivalence
-[NN]|lbs.|lb.|0-0|0.75|Equivalence
 [JJ]|questionable|debatable|0-0|0.75|Equivalence
 [JJ]|re-exporting|re-export|0-0|0.75|Equivalence
 [NNS]|catastrophes|disasters|0-0|0.75|Equivalence
@@ -3759,7 +3757,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [JJ]|changing|change|0-0|0.75|Equivalence
 [NNS]|thoughts|thinks|0-0|0.75|Equivalence
 [VB]|distributing|circulate|0-0|0.75|Equivalence
-[CD]|0.05|.05|0-0|0.75|Equivalence
 [NN]|murderer|killer|0-0|0.75|Equivalence
 [JJ]|development-friendly|pro-development|0-0|0.75|Equivalence
 [NN]|interlocking|interlock|0-0|0.75|Equivalence
@@ -4634,7 +4631,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [JJ]|males|male|0-0|0.8|Equivalence
 [RB]|comprehensively|exhaustively|0-0|0.8|Equivalence
 [VBN]|restituted|returned|0-0|0.8|Equivalence
-[CD]|0.001|.001|0-0|0.8|Equivalence
 [JJ]|non-timber|non-wood|0-0|0.8|Equivalence
 [JJ]|precarious|insecure|0-0|0.8|Equivalence
 [NNPS]|candidates|nominees|0-0|0.8|Equivalence
@@ -6748,7 +6744,7 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [VBZ]|ignites|sparks|0-0|0.8571428571428571|Equivalence
 [JJ]|coerced|forced|0-0|0.8571428571428571|Equivalence
 [VB]|allowed|enable|0-0|0.8571428571428571|Equivalence
-[FW]|bellow.|below.|0-0|0.8571428571428571|Equivalence
+[FW]|bellow|below|0-0|0.8571428571428571|Equivalence
 [NNS]|masters|master|0-0|0.8571428571428571|Equivalence
 [VB]|revisit|review|0-0|0.8571428571428571|Equivalence
 [JJ]|understandable|intelligible|0-0|0.8571428571428571|Equivalence

@@ -2,6 +2,15 @@ import argparse
 import re
 import pandas as pd
 
+
+def has_letter(input_string):
+    return bool(re.search(r'[a-zA-Z]', input_string))
+
+
+def has_punctuation(input_string):
+    return bool(re.search(r'[!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~]', input_string)) # all punctuation signs besides "-"
+
+
 # PARSING
 parser = argparse.ArgumentParser()
 # Set the parameters
@@ -11,7 +20,7 @@ parser.add_argument("--num_rules", type=int, default=1000, help="Number of first
 
 parser.add_argument("--input_file", type=str, default="opus.en-sr-train.en", help="Training set for Eng->Sr")
 parser.add_argument("--output_path", type=str, default="./", help="")
-parser.add_argument("--csv_file", type=str, default="sorted_ppdb_small.csv", help="CSV file with the rules")
+parser.add_argument("--csv_file", type=str, default="sorted_ppdb_s_lexical.csv", help="CSV file with the rules")
 args = parser.parse_args()
 
 print(f"Modifying {args.num_sentences} sentences using {args.num_rules} paraphrasing rules.")
@@ -29,20 +38,25 @@ print(f"Starting application of {len(rules)} rules")
 counter = 0
 for i, rule in rules.iterrows():
     # Ignoring numbers because they appear in contexts of dates, orders, within other numbers...
+    # - any rule that does not have characters
+    # - has any punct sign besides "-_
     # - they are the same length
     # - they are not a "turn -> turning" type og rule
     # - they wrongly paraphrase plurals
-    if rule["Shorter"].strip().isnumeric() \
+    if not has_letter(rule["Shorter"].strip()) \
+            or has_punctuation(rule["Shorter"].strip()) \
             or rule["Ratio"] == "1.0" \
             or rule["Shorter"].strip() + "ing" == rule["Longer"].strip() \
             or rule["Shorter"].strip() + rule["Shorter"].strip()[-1] + "ing" == rule["Longer"].strip() \
             or rule["Tag"] == "NNS" and (rule["Shorter"].strip()[-1] != 's' and rule["Longer"].strip()[-1] != 's'):
-        #print(f"Continued for {i} ({rule['Shorter']} -> {rule['Longer']})")
+        # print(f"Continued for {i} ({rule['Shorter']} -> {rule['Longer']})")
         continue
 
     # Using `\b` for detecting word boundaries
-    print(text)
+    # print(text)
     text, n = re.subn("\\b" + rule["Shorter"].strip() + "\\b", rule["Longer"].strip(), text)
+    print("\\b" + rule["Shorter"].strip() + "\\b")
+    print("|" + rule["Longer"] + "|")
 
     # Info logging, so we see the state of our computation
     if n != 0:
