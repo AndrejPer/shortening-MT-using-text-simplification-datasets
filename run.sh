@@ -14,18 +14,18 @@ test -n "$SCRATCHDIR" || { echo >&2 "Variable SCRATCHDIR is not set!"; exit 1; }
 # if the copy operation fails, issue error message and exit
 cp $DATADIR/$PROGDIR/$PYTHONPROG $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 cp $DATADIR/opus-100/opus.en-sr-test.en $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
-cp $DATADIR/sorted_ppdb/sorted_ppdb_small.csv $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp $DATADIR/sorted_ppdb/sorted_ppdb_s_lexical.csv  $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 
 # move into scratch directory
 cd $SCRATCHDIR
 
 # run Python script
 source $DATADIR/../env/bin/activate
-python $PYTHONPROG --num_rules 7007  || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
+python $PYTHONPROG --num_rules 10331  || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 
 # move the output to user's DATADIR or exit in case of failure
-[[ -d $DATADIR/results_app_S_old ]] || mkdir $DATADIR/results_app_XXL
-cp -r ./* $DATADIR/results_S_old || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
+[[ -d $DATADIR/results_app_S_2 ]] || mkdir $DATADIR/results_app_XXL
+cp -r ./* $DATADIR/results_app_S_2 || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
 
 # clean the SCRATCH directory
 clean_scratch
