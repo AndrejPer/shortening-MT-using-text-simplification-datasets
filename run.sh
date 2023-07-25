@@ -27,18 +27,7 @@ source $DATADIR/../env/bin/activate
 python $PYTHONPROG || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 
 # move the output to user's DATADIR or exit in case of failure
-NEWDIR=results_train_S
-[[ -d $DATADIR/$NEWDIR ]] || mkdir $DATADIR/$NEWDIR
-cp -r ./* $DATADIR/$NEWDIR || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
-
-
-PYTHONPROG=translation.py
-PROGDIR=/util
-
-python $PYTHONPROG || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
-
-# move the output to user's DATADIR or exit in case of failure
-NEWDIR=results_trans_S
+NEWDIR=results_just_train_S
 [[ -d $DATADIR/$NEWDIR ]] || mkdir $DATADIR/$NEWDIR
 cp -r ./* $DATADIR/$NEWDIR || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
 
