@@ -4402,7 +4402,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [NN]|choosing|choose|0-0|0.75|Equivalence
 [NN]|budgeted|budget|0-0|0.75|Equivalence
 [JJ]|questionable|debatable|0-0|0.75|Equivalence
-[JJ]|nos.|no.|0-0|0.75|Equivalence
 [VBZ]|issuance|issues|0-0|0.75|Equivalence
 [RB]|occasionally|sometimes|0-0|0.75|Equivalence
 [JJ]|six-year|6-year|0-0|0.75|Equivalence
@@ -4505,7 +4504,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [JJ]|prohibit|forbid|0-0|0.75|Equivalence
 [NNS]|bursting|bursts|0-0|0.75|Equivalence
 [NNS]|channels|canals|0-0|0.75|Equivalence
-[NN]|lbs.|lb.|0-0|0.75|Equivalence
 [NNPS]|subjects|issues|0-0|0.75|Equivalence
 [JJ]|photocopying|photocopy|0-0|0.75|Equivalence
 [NNP]|rejected|reject|0-0|0.75|Equivalence
@@ -4626,7 +4624,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [NN]|granting|grants|0-0|0.75|Equivalence
 [NNPS]|catastrophes|disasters|0-0|0.75|Equivalence
 [NNP]|flooding|floods|0-0|0.75|Equivalence
-[VBP]|nos.|no.|0-0|0.75|Equivalence
 [NNS]|granting|grants|0-0|0.75|Equivalence
 [NN]|striving|strive|0-0|0.75|Equivalence
 [VB]|rehabilitate|reinstate|0-0|0.75|Equivalence
@@ -8517,7 +8514,7 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [NNP]|effendi|efendi|0-0|0.8571428571428571|Equivalence
 [NN]|outcome|result|0-0|0.8571428571428571|Equivalence
 [RB]|chiefly|mainly|0-0|0.8571428571428571|Equivalence
-[FW]|bellow.|below.|0-0|0.8571428571428571|Equivalence
+[FW]|bellow|below|0-0|0.8571428571428571|Equivalence
 [JJ]|israeli-syrian|israel-syria|0-0|0.8571428571428571|Equivalence
 [JJ]|fervent|ardent|0-0|0.8571428571428571|Equivalence
 [JJ]|appeals|appeal|0-0|0.8571428571428571|Equivalence
