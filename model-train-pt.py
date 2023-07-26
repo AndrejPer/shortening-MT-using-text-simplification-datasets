@@ -1,7 +1,7 @@
 from datasets import DatasetDict, Dataset
 from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM, DataCollatorForSeq2Seq, Seq2SeqTrainingArguments, Seq2SeqTrainer
 
-a_file = open("opus_15838_1000000_l.en-sr-train.en")
+a_file = open("opus_34654_1000000_xxl.en-sr-train.en")
 file_contents = a_file.read()
 en_train_split = file_contents.splitlines()
 a_file = open("corrected.opus.en-sr-train.sr")
@@ -116,9 +116,9 @@ trainer = Seq2SeqTrainer(
 
 trainer.train()
 
-print("evaluation after PPDB L training: ")
+print("evaluation after PPDB XXL training: ")
 print(trainer.evaluate(max_length=max_length))
 
-new_model_checkpoint = "Helsinki-NLP/shortL-opus-mt-tc-base-en-sh"
+new_model_checkpoint = "Helsinki-NLP/shortXXL-opus-mt-tc-base-en-sh"
 trainer.save_model("./" + new_model_checkpoint)
 
