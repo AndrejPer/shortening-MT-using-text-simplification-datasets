@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -N app_L
+#PBS -N app_XL
 #PBS -l select=1:ncpus=1:mem=128gb:scratch_local=128gb
 #PBS -l walltime=10:00:00
 #PBS -m abe
