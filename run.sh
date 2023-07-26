@@ -15,7 +15,7 @@ test -n "$SCRATCHDIR" || { echo >&2 "Variable SCRATCHDIR is not set!"; exit 1; }
 cp $DATADIR/$PROGDIR/$PYTHONPROG $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 cp $DATADIR/opus-100/opus.en-sr-test.en $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 cp $DATADIR/opus-100/corrected.opus.en-sr-test.sr $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
-cp -r $DATADIR/opus-100/results_just_train_M/Helsinki-NLP $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
+cp -r $DATADIR/opus-100/results_just_train_L/Helsinki-NLP $SCRATCHDIR || { echo >&2 "Error while copying input file(s)!"; exit 2; }
 
 # move into scratch directory
 cd $SCRATCHDIR
@@ -25,7 +25,7 @@ source $DATADIR/../env/bin/activate
 python $PYTHONPROG || { echo >&2 "Calculation ended up erroneously (with a code $?) !!"; exit 3; }
 
 # move the output to user's DATADIR or exit in case of failure
-NEWDIR=results_just_trans_M
+NEWDIR=results_just_trans_L
 [[ -d $DATADIR/$NEWDIR ]] || mkdir $DATADIR/$NEWDIR
 cp -r ./* $DATADIR/$NEWDIR || { echo >&2 "Result file(s) copying failed (with a code $?) !!"; exit 4; }
 
