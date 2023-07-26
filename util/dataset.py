@@ -39,7 +39,7 @@ counter = 0
 for i, rule in rules.iterrows():
     # Ignoring numbers because they appear in contexts of dates, orders, within other numbers...
     # - any rule that does not have characters
-    # - has any punct sign besides "-_
+    # - has any punct sign besides "-"
     # - they are the same length
     # - they are not a "turn -> turning" type og rule
     # - they wrongly paraphrase plurals

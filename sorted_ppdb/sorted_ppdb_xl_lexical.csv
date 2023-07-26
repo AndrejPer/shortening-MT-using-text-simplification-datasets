@@ -5499,7 +5499,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [NNP]|al-aqsa|aqsa|0-0|0.6666666666666666|Equivalence
 [NNP]|amidst|amid|0-0|0.6666666666666666|Equivalence
 [VB]|defray|paid|0-0|0.6666666666666666|Equivalence
-[VBZ]|nos|no|0-0|0.6666666666666666|Equivalence
 [JJ]|selecting|choose|0-0|0.6666666666666666|Equivalence
 [NNP]|enriching|enrich|0-0|0.6666666666666666|Equivalence
 [NN]|emptiness|vacuum|0-0|0.6666666666666666|Equivalence
@@ -10033,7 +10032,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [NNPS]|routings|routes|0-0|0.75|Equivalence
 [VBP]|drop|dip|0-0|0.75|Equivalence
 [RB]|1993-1994|1993-94|0-0|0.75|Equivalence
-[VB]||nil|0-0|0.75|Equivalence
 [JJ]|preposterous|ludicrous|0-0|0.75|Equivalence
 [NNS]|gradings|grades|0-0|0.75|Equivalence
 [NNS]|thoughts|thinks|0-0|0.75|Equivalence
@@ -10089,7 +10087,6 @@ Tag|Longer|Shorter|Score|Ratio|Equivalence
 [JJ]|sampling|sample|0-0|0.75|Equivalence
 [JJ]|overcast|cloudy|0-0|0.75|Equivalence
 [JJ]|washroom|toilet|0-0|0.75|Equivalence
-[JJ]||nil|0-0|0.75|Equivalence
 [RB]|tremendously|immensely|0-0|0.75|Equivalence
 [JJ]|nauseous|queasy|0-0|0.75|Equivalence
 [JJ]|chromium|chrome|0-0|0.75|Equivalence
