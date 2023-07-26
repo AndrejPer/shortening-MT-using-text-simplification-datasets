@@ -1,7 +1,8 @@
 #!/bin/bash
-#PBS -N app_XL
-#PBS -l select=1:ncpus=1:mem=128gb:scratch_local=128gb
-#PBS -l walltime=10:00:00
+#PBS -N train_trans_S
+#PBS -q gpu
+#PBS -l select=1:ncpus=1:mem=200gb:scratch_local=200gb:ngpus=1
+#PBS -l walltime=15:00:00
 #PBS -m abe
 
 export PYTHONUSERBASE=/storage/praha1/home/andrejp/PUB-PyTorch21.11
