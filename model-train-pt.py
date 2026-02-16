@@ -1,10 +1,10 @@
 from datasets import DatasetDict, Dataset
 from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM, DataCollatorForSeq2Seq, Seq2SeqTrainingArguments, Seq2SeqTrainer
 
-a_file = open("opus_34654_1000000_xxl.en-sr-train.en")
+a_file = open("opus-100/opus_34654_1000000_xxl.en-sr-train.en")
 file_contents = a_file.read()
 en_train_split = file_contents.splitlines()
-a_file = open("corrected.opus.en-sr-train.sr")
+a_file = open("opus-100/corrected.opus.en-sr-train.sr")
 file_contents = a_file.read()
 sr_train_split = file_contents.splitlines()
 
@@ -12,10 +12,10 @@ train = {
     'translation': [{"en": eng_text, "sr": srb_text} for eng_text, srb_text in zip(en_train_split, sr_train_split)]}
 train = Dataset.from_dict(train)
 
-a_file = open("corrected.opus.en-sr-test.sr")
+a_file = open("opus-100/corrected.opus.en-sr-test.sr")
 file_contents = a_file.read()
 sr_test_split = file_contents.splitlines()
-a_file = open("opus.en-sr-test.en")
+a_file = open("opus-100/opus.en-sr-test.en")
 file_contents = a_file.read()
 en_test_split = file_contents.splitlines()
 
@@ -23,10 +23,10 @@ test = {'translation': [{"en": eng_text, "sr": srb_text} for eng_text, srb_text 
 test_sentences = [sentence for sentence in en_test_split]
 test = Dataset.from_dict(test)
 
-a_file = open("opus.en-sr-dev.sr")
+a_file = open("opus-100/opus.en-sr-dev.sr")
 file_contents = a_file.read()
 sr_dev_split = file_contents.splitlines()
-a_file = open("opus.en-sr-dev.en")
+a_file = open("opus-100/opus.en-sr-dev.en")
 file_contents = a_file.read()
 en_dev_split = file_contents.splitlines()
 
@@ -34,6 +34,10 @@ dev = {'translation': [{"en": eng_text, "sr": srb_text} for eng_text, srb_text i
 dev = Dataset.from_dict(dev)
 
 dataset = DatasetDict({'train': train, 'test': test, 'validation': dev})
+
+# checking a sentence
+en_sentence = dataset['train'][1]['translation']['en']
+sr_sentence = dataset["train"][1]["translation"]["sr"]
 
 model_checkpoint = "Helsinki-NLP/opus-mt-tc-base-en-sh"
 translator = pipeline("translation", model=model_checkpoint)
@@ -101,7 +105,7 @@ args = Seq2SeqTrainingArguments(
     save_total_limit=3,
     num_train_epochs=3,
     predict_with_generate=True,
-    fp16=True,
+    # fp16=True,
 )
 
 trainer = Seq2SeqTrainer(
@@ -121,4 +125,3 @@ print(trainer.evaluate(max_length=max_length))
 
 new_model_checkpoint = "Helsinki-NLP/shortXXL-opus-mt-tc-base-en-sh"
 trainer.save_model("./" + new_model_checkpoint)
-

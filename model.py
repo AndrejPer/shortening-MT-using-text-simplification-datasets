@@ -40,5 +40,3 @@ dataset = DatasetDict({'train': train, 'test': test, 'dev': dev})
 en_sentence = dataset['train'][1]['translation']['en']
 sr_sentence = dataset["train"][1]["translation"]["sr"]
 print(sr_sentence)
-
-
