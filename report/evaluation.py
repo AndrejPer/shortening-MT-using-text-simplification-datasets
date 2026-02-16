@@ -25,7 +25,7 @@ results = task_evaluator.compute(
     tokenizer=tokenizer,
     data=test,
     metric=metric,
-    input_column="translation")
+    input_column="translation",
+    label_column="translation")
 
-print(f"evaluation of sacrebleu of the model {model_checkpoint}:")
-print(results)
+print(f"evaluation of sacrebleu of the model {model_checkpoint}: {results}")
