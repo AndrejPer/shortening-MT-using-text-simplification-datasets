@@ -1,5 +1,5 @@
 file_name = "opus.en-sr-train.sr"
-fp = open("./opus-100/" + file_name)
+fp = open("../translations/normal_translation.txt", "r")
 text = "".join(fp.readlines())
 new_text = ""
 cyrillic_to_latin_dict = {
@@ -16,7 +16,7 @@ cyrillic_to_latin_dict = {
 for i in text:
     #print(i)
 
-    if(i == "è"):
+    if i == "è":
         i = "č"
 
     elif (i == "È"):
@@ -47,5 +47,23 @@ for i in text:
 print(type(new_text))
 #print(new_text)
 
-fnew = open("corrected." + file_name, "w")
+fnew = open("../translations/normal_translation.txt", "w")
 fnew.write(new_text)
+
+# fp = open("../translations/normal_translation.txt", "r")
+# fnew = open("../translations/fixed_normal_translation.txt", "w")
+# lines = fp.readlines()
+# counter = 0
+# for line in lines:
+#     if line.startswith("- ") or line.startswith("~ "):
+#         counter += 1
+#         line = line[2:]
+#     elif line.startswith("-"):
+#         counter += 1
+#         line = line[1:]
+#     if line.isspace():
+#         continue
+#     print(line, file=fnew, end="")
+#     print(f"/-{line}-/", end="")
+#
+# print(counter)
