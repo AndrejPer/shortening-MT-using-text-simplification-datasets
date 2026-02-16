@@ -45,7 +45,7 @@ for i, rule in rules.iterrows():
     # - they wrongly paraphrase plurals
     if type(rule["Shorter"]) is not str \
             or not has_letter(rule["Shorter"].strip()) \
-            or rule["Ratio"] == "1.0" \
+            or float(rule["Ratio"]) >= 1.0 \
             or rule["Shorter"].strip() + "ing" == rule["Longer"].strip() \
             or rule["Shorter"].strip() + rule["Shorter"].strip()[-1] + "ing" == rule["Longer"].strip() \
             or rule["Tag"] == "NNS" and (rule["Shorter"].strip()[-1] != 's' and rule["Longer"].strip()[-1] != 's'):
