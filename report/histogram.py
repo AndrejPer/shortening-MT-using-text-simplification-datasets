@@ -2,13 +2,14 @@ import pandas as pd
 import numpy as np
 
 column_names = ['Tag', 'Longer', 'Shorter', 'Score', 'Ratio', 'Equivalence']
-df = pd.read_csv("../sorted_ppdb_small.csv", delimiter='\|', engine='python')
+df = pd.read_csv("../sorted_ppdb/sorted_ppdb_s_lexical.csv", delimiter='\|', engine='python')
 df = df.drop_duplicates()
 print(df['Ratio'])
 
 #ratios = [ratio for ratio in df['Ratio']]
 ratios = df['Ratio'].to_numpy()
 print(ratios[7000:7007])
+
 
 import matplotlib.pyplot as plt
 
